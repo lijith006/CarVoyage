@@ -4,10 +4,12 @@ import 'package:flutter_project_final/screens/drawerMenu/aboutUs.dart';
 import 'package:flutter_project_final/screens/drawerMenu/contacts.dart';
 import 'package:flutter_project_final/screens/drawerMenu/privacy.dart';
 import 'package:flutter_project_final/screens/drawerMenu/terms.dart';
+import 'package:flutter_project_final/screens/dues_cars.dart';
 import 'package:flutter_project_final/screens/login.dart';
 import 'package:flutter_project_final/screens/add_cars.dart';
 import 'package:flutter_project_final/screens/all_cars_list.dart';
 import 'package:flutter_project_final/screens/rented_cars.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,6 +22,21 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  String version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _getVersion();
+  }
+
+  Future<void> _getVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      version = '${packageInfo.version}';
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -215,6 +232,16 @@ class _HomeScreenState extends State<HomeScreen> {
                         ));
                   },
                 ),
+                SizedBox(
+                  height: 190,
+                ),
+                Center(
+                  child: Text(
+                    'Version $version',
+                    style: TextStyle(
+                        color: Colors.grey, fontWeight: FontWeight.bold),
+                  ),
+                )
               ],
             ),
           ),
@@ -361,7 +388,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   size: 29,
                   color: Color.fromARGB(255, 147, 247, 150),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => DueCarsPAge(),
+                      ));
+                },
                 style: ElevatedButton.styleFrom(
                     backgroundColor: Color.fromARGB(255, 78, 76, 76),
                     shape: RoundedRectangleBorder(

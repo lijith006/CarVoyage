@@ -19,12 +19,20 @@ class CarSelect extends StatefulWidget {
   State<CarSelect> createState() => _CarSelectState();
 }
 
-final initialKilometersController = TextEditingController();
-final pickUpDateController = TextEditingController();
-
-final dropOffDateController = TextEditingController();
-
 class _CarSelectState extends State<CarSelect> {
+  final initialKilometersController = TextEditingController();
+  final pickUpDateController = TextEditingController();
+
+  final dropOffDateController = TextEditingController();
+  @override
+  void dispose() {
+    initialKilometersController.dispose();
+    pickUpDateController.dispose();
+    dropOffDateController.dispose();
+    super.dispose();
+  }
+
+  final _formKey = GlobalKey<FormState>();
   Widget selectedCarImage() {
     return imageCard(widget.car.selectedImage);
   }
@@ -123,170 +131,173 @@ class _CarSelectState extends State<CarSelect> {
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(children: [
-              Padding(
-                padding: const EdgeInsets.all(20),
-                child: selectedCarImage(),
-              ),
-              const SizedBox(height: 40),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Brand',
-                labelText: 'Brand',
-                readOnly: true,
-                initialValue: widget.car.brand,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Model',
-                labelText: 'Model',
-                readOnly: true,
-                initialValue: widget.car.model,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Year',
-                labelText: 'Year',
-                readOnly: true,
-                initialValue: widget.car.year,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Insurance',
-                labelText: 'Insurance',
-                readOnly: true,
-                initialValue: widget.car.insurance,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Amount',
-                labelText: 'Amount',
-                readOnly: true,
-                initialValue: widget.car.amount,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Seat',
-                labelText: 'Seat',
-                readOnly: true,
-                initialValue: widget.car.seat,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Fuel',
-                labelText: 'Fuel',
-                readOnly: true,
-                initialValue: widget.car.fuel,
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                readOnly: true,
-                hintText: 'Pickup date',
-                labelText: 'Pickup date',
-                controller: pickUpDateController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Pick a date';
-                  }
-                  return null;
-                },
-                onTap: () async {
-                  pickUpDateSelected();
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                readOnly: true,
-                hintText: 'Drop Off date',
-                labelText: 'Drop Off date',
-                controller: dropOffDateController,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Pick a date';
-                  }
-                  return null;
-                },
-                onTap: () async {
-                  dropOffDateSelected();
-                },
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              CustomTextField(
-                hintText: 'Enter the Kilometers',
-                labelText: 'Initial Kilometer',
-                controller: initialKilometersController,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Kilometers  is required';
-                  }
-                  return null;
-                },
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  'Pollution Certificate',
-                  style: TextStyle(color: Colors.white, fontSize: 17),
+            child: Form(
+              key: _formKey,
+              child: Column(children: [
+                Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: selectedCarImage(),
                 ),
-              ),
-              pollutionCertImage(),
-              const SizedBox(height: 20),
-              Padding(
-                padding: const EdgeInsets.all(8),
-                child: Text(
-                  'Insurance Certificate',
-                  style: TextStyle(color: Colors.white, fontSize: 17),
+                const SizedBox(height: 40),
+                const SizedBox(
+                  height: 20,
                 ),
-              ),
-              insuranceCertImage(),
-              const SizedBox(height: 20),
-              //***************************************** */
-              ElevatedButton.icon(
-                style: ButtonStyle(
-                    padding: MaterialStatePropertyAll(
-                      EdgeInsets.symmetric(horizontal: 28, vertical: 10),
-                    ),
-                    foregroundColor: MaterialStatePropertyAll(Colors.black),
-                    backgroundColor: MaterialStatePropertyAll(
-                      Color.fromARGB(255, 182, 214, 135),
-                    )),
-                onPressed: () {
-                  if (validateDates()) {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => AddCustomerDetails(
-                          car: widget.car,
-                          initialkilometers: initialKilometersController.text,
-                          pickUpDate: pickUpDateController.text,
-                          dropOffDate: dropOffDateController.text),
-                    ));
-                  }
-                },
-                icon: const Icon(Icons.save, color: Colors.black),
-                label: const Text(
-                  'Add user details',
+                CustomTextField(
+                  hintText: 'Brand',
+                  labelText: 'Brand',
+                  readOnly: true,
+                  initialValue: widget.car.brand,
                 ),
-              ),
-            ]),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: 'Model',
+                  labelText: 'Model',
+                  readOnly: true,
+                  initialValue: widget.car.model,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: 'Year',
+                  labelText: 'Year',
+                  readOnly: true,
+                  initialValue: widget.car.year,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: 'Insurance',
+                  labelText: 'Insurance',
+                  readOnly: true,
+                  initialValue: widget.car.insurance,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: 'Amount',
+                  labelText: 'Amount',
+                  readOnly: true,
+                  initialValue: widget.car.amount,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: 'Seat',
+                  labelText: 'Seat',
+                  readOnly: true,
+                  initialValue: widget.car.seat,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: 'Fuel',
+                  labelText: 'Fuel',
+                  readOnly: true,
+                  initialValue: widget.car.fuel,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  readOnly: true,
+                  hintText: 'Pickup date',
+                  labelText: 'Pickup date',
+                  controller: pickUpDateController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Pick a date';
+                    }
+                    return null;
+                  },
+                  onTap: () async {
+                    pickUpDateSelected();
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  readOnly: true,
+                  hintText: 'Drop Off date',
+                  labelText: 'Drop Off date',
+                  controller: dropOffDateController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Pick a date';
+                    }
+                    return null;
+                  },
+                  onTap: () async {
+                    dropOffDateSelected();
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                CustomTextField(
+                  hintText: 'Enter the Kilometers',
+                  labelText: 'Initial Kilometer',
+                  controller: initialKilometersController,
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Kilometers  is required';
+                    }
+                    return null;
+                  },
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    'Pollution Certificate',
+                    style: TextStyle(color: Colors.white, fontSize: 17),
+                  ),
+                ),
+                pollutionCertImage(),
+                const SizedBox(height: 20),
+                Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Text(
+                    'Insurance Certificate',
+                    style: TextStyle(color: Colors.white, fontSize: 17),
+                  ),
+                ),
+                insuranceCertImage(),
+                const SizedBox(height: 20),
+                //***************************************** */
+                ElevatedButton.icon(
+                  style: ButtonStyle(
+                      padding: MaterialStatePropertyAll(
+                        EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+                      ),
+                      foregroundColor: MaterialStatePropertyAll(Colors.black),
+                      backgroundColor: MaterialStatePropertyAll(
+                        Color.fromARGB(255, 182, 214, 135),
+                      )),
+                  onPressed: () {
+                    if (_formKey.currentState!.validate() && validateDates()) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => AddCustomerDetails(
+                            car: widget.car,
+                            initialkilometers: initialKilometersController.text,
+                            pickUpDate: pickUpDateController.text,
+                            dropOffDate: dropOffDateController.text),
+                      ));
+                    }
+                  },
+                  icon: const Icon(Icons.save, color: Colors.black),
+                  label: const Text(
+                    'Add user details',
+                  ),
+                ),
+              ]),
+            ),
           ),
         ));
   }
@@ -298,6 +309,17 @@ class _CarSelectState extends State<CarSelect> {
         lastDate: DateTime(2099),
         initialDate: DateTime.now());
     if (picked != null) {
+      if (dropOffDateController.text.isNotEmpty) {
+        DateTime dropOffDate =
+            DateFormat('dd/MM/yyyy').parse(dropOffDateController.text);
+        if (picked.isAfter(dropOffDate)) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Pick-up date cannot be after drop-off date'),
+            backgroundColor: Colors.red,
+          ));
+          return;
+        }
+      }
       setState(() {
         pickUpDateController.text = DateFormat('dd/MM/yyyy').format(picked);
       });
@@ -322,7 +344,6 @@ class _CarSelectState extends State<CarSelect> {
         setState(() {
           dropOffDateController.text =
               DateFormat('dd/MM/yyyy').format(dropdatepick);
-          // dropOffDateController.text = dropdatepick.toString().split(" ")[0];
         });
       }
     }

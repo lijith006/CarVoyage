@@ -92,16 +92,21 @@ class CustomerModelAdapter extends TypeAdapter<CustomerModel> {
       carSeat: fields[10] as String,
       carBrand: fields[1] as String,
       carModel: fields[8] as String,
-      carMonthlyRent: fields[11] as String,
+      dailyRent: fields[11] as String,
       carImage: fields[12] as String,
-      kilometers: fields[13] as String,
+      initialkilometers: fields[13] as String,
+      carYear: fields[15] as String,
+      carInsurance: fields[16] as String,
+      carInsuranceCert: fields[18] as String,
+      carPollutionCert: fields[17] as String,
+      currentKilometers: fields[14] as String,
     );
   }
 
   @override
   void write(BinaryWriter writer, CustomerModel obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(19)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -125,11 +130,21 @@ class CustomerModelAdapter extends TypeAdapter<CustomerModel> {
       ..writeByte(10)
       ..write(obj.carSeat)
       ..writeByte(11)
-      ..write(obj.carMonthlyRent)
+      ..write(obj.dailyRent)
       ..writeByte(12)
       ..write(obj.carImage)
       ..writeByte(13)
-      ..write(obj.kilometers);
+      ..write(obj.initialkilometers)
+      ..writeByte(14)
+      ..write(obj.currentKilometers)
+      ..writeByte(15)
+      ..write(obj.carYear)
+      ..writeByte(16)
+      ..write(obj.carInsurance)
+      ..writeByte(17)
+      ..write(obj.carPollutionCert)
+      ..writeByte(18)
+      ..write(obj.carInsuranceCert);
   }
 
   @override

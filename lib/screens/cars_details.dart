@@ -8,6 +8,7 @@ import 'package:flutter_project_final/screens/car_select.dart';
 import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/screens/update_car.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'image_preview.dart';
 
 class cardetails extends StatefulWidget {
   final CarsModel modelcar;
@@ -36,11 +37,29 @@ class _CarDetailsState extends State<cardetails> {
   }
 
   Widget pollutionCertImage() {
-    return imageCard(widget.modelcar.pollutionCertImage);
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              ImagePreview(imagePath: widget.modelcar.pollutionCertImage),
+        );
+      },
+      child: imageCard(widget.modelcar.pollutionCertImage),
+    );
   }
 
   Widget insuranceCertImage() {
-    return imageCard(widget.modelcar.InsuranceCertImage);
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) =>
+              ImagePreview(imagePath: widget.modelcar.InsuranceCertImage),
+        );
+      },
+      child: imageCard(widget.modelcar.InsuranceCertImage),
+    );
   }
 
   Widget imageCard(String imagePath) {
@@ -77,41 +96,6 @@ class _CarDetailsState extends State<cardetails> {
       ),
     );
   }
-
-  // Widget SelectedCarImage() {
-  //   return SizedBox(
-  //     height: 220,
-  //     width: 200,
-  //     child: Card(
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(20),
-  //       ),
-  //       elevation: 5,
-  //       child: Stack(
-  //         alignment: Alignment.center,
-  //         children: [
-  //           Container(
-  //             decoration: BoxDecoration(
-  //               borderRadius: BorderRadius.circular(20),
-  //               color: Colors.grey,
-  //             ),
-  //           ),
-  //           ClipRRect(
-  //             borderRadius: BorderRadius.circular(20),
-  //             child: widget.modelcar.selectedImage.isNotEmpty
-  //                 ? Image.file(
-  //                     File(widget.modelcar.selectedImage),
-  //                     fit: BoxFit.cover,
-  //                     width: 200,
-  //                     height: 220,
-  //                   )
-  //                 : Container(),
-  //           ),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {

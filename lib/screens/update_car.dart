@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
-import 'package:flutter_project_final/screens/car_select.dart';
 import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/components/custom_drop_down.dart';
 import 'package:flutter_project_final/components/custom_text_field.dart';
@@ -280,19 +279,6 @@ class _UpdateCarState extends State<UpdateCar> {
     }
   }
 
-  Future<void> pickUpDateSelected() async {
-    DateTime? picked = await showDatePicker(
-        context: context,
-        firstDate: DateTime(2010),
-        lastDate: DateTime(2099),
-        initialDate: DateTime.now());
-    if (picked != null) {
-      setState(() {
-        pickUpDateController.text = picked.toString().split(" ")[0];
-      });
-    }
-  }
-
   Future<void> getimage(ImageSource source) async {
     final image = await ImagePicker().pickImage(source: source);
     if (image == null) {
@@ -300,17 +286,6 @@ class _UpdateCarState extends State<UpdateCar> {
     }
     setState(() {
       image25 = File(image.path);
-      //  imagepath = image.path.toString();
     });
   }
-  // Future<void> pickImageFromGallery() async {
-  //   final returnedImage =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-
-  //   if (returnedImage != null) {
-  //     setState(() {
-  //       selectedImage = returnedImage.path;
-  //     });
-  //   }
-  // }
 }

@@ -3,28 +3,30 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_final/components/custom_text_field.dart';
 import 'package:flutter_project_final/db_functions/box.dart';
+import 'package:flutter_project_final/db_functions/car_db_functions.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
 import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:gap/gap.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:intl/intl.dart';
 
 class DropoffDetails extends StatefulWidget {
   final CustomerModel customer;
   final CarsModel? car;
-  final CustomerModel initialkilometers;
-  const DropoffDetails(
-      {super.key,
-      required this.customer,
-      this.car,
-      required this.initialkilometers});
+  const DropoffDetails({
+    super.key,
+    required this.customer,
+    this.car,
+    required currentKilometers,
+  });
 
   @override
   State<DropoffDetails> createState() => _DropoffDetailsState();
 }
 
 class _DropoffDetailsState extends State<DropoffDetails> {
-  int drivenKilometers = 0;
-  final usedKilometersController = TextEditingController();
+  double drivenKilometers = 0;
+  final initialKilometersController = TextEditingController();
   final currentKilometersController = TextEditingController();
   final drivenKilometersController = TextEditingController();
   var carbrandController = TextEditingController();
@@ -35,8 +37,7 @@ class _DropoffDetailsState extends State<DropoffDetails> {
   var licenseNumberController = TextEditingController();
   var pickUpDate = TextEditingController();
   var dropOffDate = TextEditingController();
-  var kilometersController = TextEditingController();
-  var dailyrentController = TextEditingController();
+  var dailyRentController = TextEditingController();
   var carseater = TextEditingController();
   var carfuel = TextEditingController();
   double totalRent = 0.0;
@@ -44,7 +45,12 @@ class _DropoffDetailsState extends State<DropoffDetails> {
   File? imagepath;
   @override
   void initState() {
-    kilometersController.text = widget.customer.kilometers;
+    currentKilometersController.text = widget.customer.currentKilometers;
+    drivenKilometersController.text = '0';
+    initialKilometersController.text = widget.customer.initialkilometers;
+    print('initial kilometer in dropoff:${widget.customer.initialkilometers}');
+    print('CuRRENT kilometer in dropoff:${widget.customer.currentKilometers}');
+
     carbrandController.text = widget.customer.carBrand;
     carmodelController.text = widget.customer.carModel;
 
@@ -54,7 +60,7 @@ class _DropoffDetailsState extends State<DropoffDetails> {
     selectedImage = widget.customer.carImage;
     pickUpDate.text = widget.customer.pickUpDate;
     dropOffDate.text = widget.customer.dropOffDate;
-    dailyrentController.text = widget.customer.carMonthlyRent;
+    dailyRentController.text = widget.customer.dailyRent;
     carfuel.text = widget.customer.carFuel;
     carseater.text = widget.customer.carSeat;
     updateTotalRent();
@@ -84,10 +90,14 @@ class _DropoffDetailsState extends State<DropoffDetails> {
   }
 
   void updateTotalRent() {
-    if (kilometersController.text.isNotEmpty) {
-      double kilometers = double.parse(kilometersController.text);
+    if (initialKilometersController.text.isNotEmpty &&
+        currentKilometersController.text.isNotEmpty) {
+      double initialKilometer = double.parse(initialKilometersController.text);
+      double currentKilometer = double.parse(currentKilometersController.text);
+      drivenKilometers = currentKilometer - initialKilometer;
+      drivenKilometersController.text = drivenKilometers.toString();
       totalRent = calculateTotalRent(
-          kilometers, double.parse(dailyrentController.text));
+          drivenKilometers, double.parse(dailyRentController.text));
       setState(() {});
     }
   }
@@ -188,20 +198,9 @@ class _DropoffDetailsState extends State<DropoffDetails> {
                         CustomTextField(
                           labelText: 'Daily Rent',
                           hintText: 'Daily Rent',
-                          controller: dailyrentController,
+                          controller: dailyRentController,
                           enabled: false,
                         ),
-                        const Gap(15),
-                        // CustomTextField(
-                        //   labelText: 'Car Reg Number',
-                        //   hintText: 'Car Reg Number',
-                        //   controller: carRegController,
-                        //   enabled: false,
-                        //   textStyle: const TextStyle(
-                        //     color: Colors.black,
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        //),
                         const Gap(15),
                         CustomTextField(
                           labelText: 'Customer Name',
@@ -238,63 +237,10 @@ class _DropoffDetailsState extends State<DropoffDetails> {
                           enabled: false,
                         ),
                         const Gap(15),
-
-                        CustomTextField(
-                          labelText: 'Current Kilometers ',
-                          hintText: 'Current Kilometers',
-                          initialValue: currentKilometersController.text,
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Current Kilometers is required';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            updateTotalRent();
-                            // setState(() {
-                            //   int initialKilometers = int.parse(widget.);
-                            //   int currentKilometers = int.parse(value);
-                            //   drivenKilometers =
-                            //       currentKilometers - initialKilometers;
-                            // });
-                          },
-                          // onChanged: (value) => updateTotalRent(),
-                        ),
-
                         const Gap(15),
-
-                        // CustomTextField(
-                        //   hintText: 'Driven Kilometers',
-                        //   labelText: 'Driven Kilometers',
-                        //   controller: drivenKilometersController,
-                        //   keyboardType: TextInputType.number,
-                        //   validator: (value) {
-                        //     if (value!.isEmpty) {
-                        //       return 'Driven kilometers is required';
-                        //     }
-                        //     return null;
-                        //   },
-                        // ),
                         SizedBox(
                           height: 20,
                         ),
-
-                        // ElevatedButton(
-                        //   onPressed: () async {
-                        //     if (car != null) {
-                        //       await markAsAvailable(car);
-                        //       ScaffoldMessenger.of(context).showSnackBar(
-                        //         SnackBar(
-                        //             content: Text('Car marked as available!')),
-                        //       );
-                        //       Navigator.of(context).pop();
-                        //     }
-                        //   },
-                        //   child: Text('Rent Off'),
-                        // ),
-                        //  onPressed: calculateDrivenKilometers,
-                        //child: const Text('Calculate Driven Kilometers'),
-
                         const SizedBox(height: 20),
                         Text(
                           'Driven Kilometers: ${drivenKilometers}',
@@ -308,18 +254,31 @@ class _DropoffDetailsState extends State<DropoffDetails> {
                           padding: EdgeInsets.all(10),
                           color: Colors.grey[150],
                           child: Text(
-                            'total Rent: $totalRent',
+                            'Total Rent: \₹${totalRent.toStringAsFixed(2)}',
                             style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
                               color: Colors.white70,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
                         ),
                         Gap(15),
                         ElevatedButton(
-                            onPressed: () {},
-                            child: Text('OK'),
+                            onPressed: () {
+                              Navigator.pop(context);
+                              removeCustomerFromScreen(widget.customer);
+                              saveDetails();
+                              verifyCarAdded();
+
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => HomeScreen(),
+                                ),
+                              );
+                              print('Result Rent:${totalRent}');
+                            },
+                            child: Text('Submit'),
                             style: ElevatedButton.styleFrom(
                               backgroundColor:
                                   Color.fromARGB(255, 182, 214, 135),
@@ -340,38 +299,48 @@ class _DropoffDetailsState extends State<DropoffDetails> {
         });
   }
 
-  // String calculateDrivenKilometers() {
-  //   if (usedKilometersController.text.isEmpty) {
-  //     return '0';
-  //   }
-  //   final initialKilometers = int.tryParse(widget.customer.kilometers) ?? 0;
-  //   final currentKilometers =
-  //       int.tryParse(currentKilometersController.text) ?? 0;
-  //   final drivenKilometers = currentKilometers - initialKilometers;
-  //   return drivenKilometers.toString();
-  // }
-//************************************************************** */
-  // void calculateDrivenKilometers() {
-  //   if (usedKilometersController.text.isEmpty) {
-  //     drivenKilometersController.text = '0';
-  //     return;
-  //   }
-  //   final initialKilometers = int.tryParse(widget.customer.kilometers) ?? 0;
-  //   final currentKilometers = int.tryParse(usedKilometersController.text) ?? 0;
-  //   final drivenKilometers = currentKilometers - initialKilometers;
-  //   drivenKilometersController.text = drivenKilometers.toString();
-  // }
-}
-
-double calculateTotalRent(double drivenKilometers, double dailyRent) {
-  double totalRent = 0;
-
-  if (drivenKilometers <= 200) {
-    totalRent = dailyRent;
-  } else {
-    totalRent = dailyRent;
-    double additionalKilometers = drivenKilometers - 200;
-    totalRent += (additionalKilometers / 100) * 100;
+  saveDetails() {
+    final brandName = widget.customer.carBrand;
+    final carModel = widget.customer.carModel;
+    final carYear = widget.customer.carYear;
+    final carSeat = widget.customer.carSeat;
+    final carFuel = widget.customer.carFuel;
+    final carRent = widget.customer.dailyRent;
+    final carInsurance = widget.customer.carInsurance;
+    final carImage = widget.customer.carImage;
+    final carPollutionCertificate = widget.customer.carPollutionCert;
+    final carInsuranceCertificate = widget.customer.carInsuranceCert;
+    final cars = CarsModel(
+        selectedImage: carImage,
+        model: carModel,
+        year: carYear,
+        insurance: carInsurance,
+        amount: carRent,
+        seat: carSeat,
+        fuel: carFuel,
+        brand: brandName,
+        pollutionCertImage: carPollutionCertificate,
+        InsuranceCertImage: carInsuranceCertificate);
+    addCar(cars);
   }
-  return totalRent;
+
+  double calculateTotalRent(double drivenKilometers, double dailyRent) {
+    double perDayRent = dailyRent;
+    DateTime pickup =
+        DateFormat('dd/MM/yyyy').parse(widget.customer.pickUpDate);
+    DateTime dropoff =
+        DateFormat('dd/MM/yyyy').parse(widget.customer.dropOffDate);
+    int differenceInDays = dropoff.difference(pickup).inDays;
+    if (differenceInDays == 0) {
+      differenceInDays = 1;
+    }
+    ;
+    double totalRent = perDayRent * differenceInDays;
+
+    if (drivenKilometers > 500) {
+      double extraKilometers = drivenKilometers - 500;
+      totalRent += (extraKilometers / 100) * 100;
+    }
+    return totalRent;
+  }
 }

@@ -9,11 +9,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 class RentedCar extends StatefulWidget {
   final CustomerModel? customer;
-  final String? initialkilometers;
   const RentedCar({
     super.key,
     this.customer,
-    this.initialkilometers,
   });
 
   @override
@@ -82,13 +80,13 @@ class _RentedCarState extends State<RentedCar> {
                     return GestureDetector(
                       onTap: () {
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => RentedCarDetails(
-                                  car: data[index],
-                                  customer: data[index],
-                                  initialkilometers: widget.initialkilometers),
-                            ));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => RentedCarDetails(
+                              customer: data[index],
+                            ),
+                          ),
+                        );
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),

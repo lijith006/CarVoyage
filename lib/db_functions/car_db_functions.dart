@@ -7,20 +7,27 @@ ValueNotifier<List<CarsModel>> carListNotifier = ValueNotifier([]);
 ValueNotifier<List<CustomerModel>> customerListNotifier = ValueNotifier([]);
 
 Future<void> addCar(CarsModel value) async {
-  final carDB = await Hive.openBox<CarsModel>('cars_ca');
+  print("Adding car: ${value.brand}");
+  final carDB = await Hive.openBox<CarsModel>('cars_ca1');
   final id = await carDB.add(value);
   value.id = id;
   carListNotifier.value.add(value);
 
-  // carListNotifier.notifyListeners();
+  carListNotifier.notifyListeners();
+  print("Car added.");
+}
+
+Future<void> verifyCarAdded() async {
+  final carDB = await Hive.openBox<CarsModel>('car_db');
+  print("Available cars: ${carDB.values.toList()}");
 }
 
 //************************
 Future<void> getCars() async {
-  final carDB = await Hive.openBox<CarsModel>('cars_ca');
+  final carDB = await Hive.openBox<CarsModel>('cars_ca1');
   carListNotifier.value.clear();
   carListNotifier.value.addAll(carDB.values);
-  // carListNotifier.notifyListeners();
+  carListNotifier.notifyListeners();
 }
 
 Future<void> deletecar(CarsModel car) async {
@@ -29,7 +36,7 @@ Future<void> deletecar(CarsModel car) async {
 }
 
 List<CarsModel> searchCars(String query) {
-  final carDB = Hive.box<CarsModel>('cars_ca');
+  final carDB = Hive.box<CarsModel>('cars_ca1');
   final List<CarsModel> allCars = carDB.values.toList();
 
   if (query.isEmpty) {
@@ -54,15 +61,30 @@ List<CarsModel> getRemovedCars() {
   return removedCarList;
 }
 
+void clearRemovedCars() {
+  removedCarList.clear();
+}
+
 List<CustomerModel> removedCustomerList = [];
 void removeCustomerFromScreen(CustomerModel customer) {
+  print("Removing customer: ${customer.customerName}");
   removedCustomerList.add(customer);
   customerListNotifier.value.remove(customer);
   Boxes.getCustomerData().delete(customer.key);
+  customerListNotifier.notifyListeners();
+  print("Customer removed.");
+}
+
+List<CustomerModel> getRemovedCustomers() {
+  return removedCustomerList;
+}
+
+void clearRemovedCustomers() {
+  removedCustomerList.clear();
 }
 
 Future<void> CustomerAdd(CustomerModel value) async {
-  final customerDB = await Hive.openBox<CustomerModel>('customer_cu');
+  final customerDB = await Hive.openBox<CustomerModel>('customer_cu2');
   final id = await customerDB.add(value);
   value.id = id;
   customerListNotifier.value.add(value);

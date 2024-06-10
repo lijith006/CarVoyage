@@ -80,6 +80,7 @@ class _AllCarListState extends State<AllCarList> {
             valueListenable: Boxes.getData().listenable(),
             builder: (context, box, _) {
               var data = box.values.toList().cast<CarsModel>();
+//var data= box.values.where((car) => car.status == 'available').toList().cast<CarsModel>();
               if (data.isEmpty) {
                 return Center(
                   child: Text(

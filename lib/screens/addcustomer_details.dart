@@ -53,30 +53,26 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
       backgroundColor: const Color(0xFF1E1E1E),
       bottomNavigationBar: BottomAppBar(
         height: 70,
-        color: Colors.black45,
+        color: Color.fromARGB(115, 50, 49, 49),
         shape: const CircularNotchedRectangle(),
         child: Row(
           children: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              color: Colors.white,
-              onPressed: () {
+            GestureDetector(
+              onTap: () {
                 Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
-                );
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomeScreen(),
+                    ));
               },
-            ),
-            const Spacer(),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              color: Colors.white,
-            ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.account_box_outlined),
-              color: Colors.white,
+              child: Container(
+                height: 28,
+                width: 28,
+                child: Image.asset(
+                  'lib/icons/house.png',
+                  color: Color.fromARGB(255, 147, 247, 150),
+                ),
+              ),
             ),
           ],
         ),
@@ -104,15 +100,63 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
                       fit: BoxFit.cover,
                     ),
                   ),
-                  child: licenseImage == null
-                      ? const Icon(
-                          Icons.add_a_photo_outlined,
-                          color: Colors.white,
-                          size: 40,
-                        )
-                      : const SizedBox(),
+                  child: Stack(
+                    children: [
+                      if (licenseImage == null)
+                        Center(
+                          child: const Icon(
+                            Icons.add_a_photo_outlined,
+                            color: Colors.yellow,
+                            size: 40,
+                          ),
+                        ),
+                      Positioned(
+                        bottom: 8.0,
+                        left: 8.0,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                              vertical: 4.0, horizontal: 8.0),
+                          color: Colors.black54,
+                          child: Text(
+                            'License Image',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
+
+              // GestureDetector(
+              //   onTap: () {
+              //     getImage(ImageSource.gallery);
+              //   },
+              //   child: Container(
+              //     height: 200,
+              //     width: 300,
+              //     decoration: BoxDecoration(
+              //       borderRadius: BorderRadius.circular(12),
+              //       image: DecorationImage(
+              //         image: licenseImage != null
+              //             ? FileImage(File(licenseImage!))
+              //             : const AssetImage('assets/Images/grey.jpg')
+              //                 as ImageProvider,
+              //         fit: BoxFit.cover,
+              //       ),
+              //     ),
+              //     child: licenseImage == null
+              //         ? const Icon(
+              //             Icons.add_a_photo_outlined,
+              //             color: Colors.yellow,
+              //             size: 40,
+              //           )
+              //         : const SizedBox(),
+              //   ),
+              // ),
               const SizedBox(height: 30),
               Padding(
                 padding: const EdgeInsets.all(8.0),
@@ -176,20 +220,35 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
                     const SizedBox(height: 20),
                     ElevatedButton.icon(
                       onPressed: () async {
+                        if (licenseImage == null) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text('Please upload a license image'),
+                            backgroundColor: Colors.red,
+                          ));
+                          return;
+                        }
+                        ;
                         if (formKey.currentState!.validate()) {
                           removedCar(widget.car);
                           await saveRentOut();
+
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Car rented out successfully!'),
                               backgroundColor: Colors.green,
                             ),
                           );
-                          Navigator.push(
+                          Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
                                 builder: (context) => RentedCar(),
-                              ));
+                              ),
+                              (route) => false);
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //       builder: (context) => RentedCar(),
+                          //     ));
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -227,9 +286,14 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
     final carImage = widget.car.selectedImage;
     final pollutionCertImage = widget.car.pollutionCertImage;
     final insuranceCertImage = widget.car.InsuranceCertImage;
-    final kilometers = widget.initialkilometers;
+    final initialkilometers = widget.initialkilometers;
     final carFuel = widget.car.fuel;
     final carSeat = widget.car.seat;
+    final carYear = widget.car.year;
+    final carInsurance = widget.car.insurance;
+    final carInsuranceCert = widget.car.InsuranceCertImage;
+    final carPollutionCert = widget.car.pollutionCertImage;
+    // final carStatus = widget.car.carStatus;
 
     if (carModel.isEmpty ||
         carBrand.isEmpty ||
@@ -244,8 +308,11 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
         selectedImage.isEmpty ||
         pollutionCertImage.isEmpty ||
         insuranceCertImage.isEmpty ||
-        kilometers.isEmpty ||
+        initialkilometers.isEmpty ||
         carImage.isEmpty ||
+        carYear.isEmpty ||
+        carPollutionCert.isEmpty ||
+        carInsuranceCert.isEmpty ||
         licenseImage == null) {
       return;
     }
@@ -258,11 +325,15 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
         dropOffDate: dropOffDate,
         licenseImage: licenseImage!,
         carFuel: carFuel,
+        carYear: carYear,
+        carInsurance: carInsurance,
+        carInsuranceCert: carInsuranceCert,
+        carPollutionCert: carPollutionCert,
         carSeat: carSeat,
         carBrand: carBrand,
         carModel: carModel,
-        carMonthlyRent: carMonthlyRent,
-        kilometers: kilometers,
+        dailyRent: carMonthlyRent,
+        initialkilometers: initialkilometers,
         carImage: carImage);
 
     await CustomerAdd(customerOne);

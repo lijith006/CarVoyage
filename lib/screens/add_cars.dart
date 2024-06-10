@@ -32,7 +32,7 @@ class _AddCarsState extends State<AddCars> {
   final TextEditingController yearController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController insuranceDateController = TextEditingController();
-  late List<String> brandNames;
+  late List<String> brandNames=[];
 
   @override
   void initState() {
@@ -384,7 +384,6 @@ class _AddCarsState extends State<AddCars> {
     );
     if (pickedinsurance != null) {
       setState(() {
-        // insuranceDateController.text = pickedinsurance.toString().split(" ")[0];
         insuranceDateController.text =
             DateFormat('dd / MM / yyyy').format(pickedinsurance);
       });

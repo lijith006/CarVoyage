@@ -66,11 +66,22 @@ class CustomerModel extends HiveObject {
   @HiveField(10)
   late String carSeat;
   @HiveField(11)
-  late String carMonthlyRent;
+  late String dailyRent;
   @HiveField(12)
   late String carImage;
   @HiveField(13)
-  late String kilometers;
+  late String initialkilometers;
+  @HiveField(14)
+  late String currentKilometers;
+  @HiveField(15)
+  late String carYear;
+  @HiveField(16)
+  late String carInsurance;
+  @HiveField(17)
+  late String carPollutionCert;
+  @HiveField(18)
+  late String carInsuranceCert;
+
   CustomerModel({
     this.id,
     required this.customerName,
@@ -83,8 +94,13 @@ class CustomerModel extends HiveObject {
     required this.carSeat,
     required this.carBrand,
     required this.carModel,
-    required this.carMonthlyRent,
+    required this.dailyRent,
     required this.carImage,
-    required this.kilometers,
+    required this.initialkilometers,
+    required this.carYear,
+    required this.carInsurance,
+    required this.carInsuranceCert,
+    required this.carPollutionCert,
+    this.currentKilometers = '0',
   });
 }

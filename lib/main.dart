@@ -17,9 +17,9 @@ void main() async {
   Hive.registerAdapter(UserModelAdapter());
   Hive.registerAdapter(BrandModelAdapter());
   Hive.registerAdapter(CustomerModelAdapter());
-  await Hive.openBox<CarsModel>('cars_ca');
+  await Hive.openBox<CarsModel>('cars_ca1');
   await Hive.openBox<UserModel>('user_db');
-  await Hive.openBox<CustomerModel>('customer_cu');
+  await Hive.openBox<CustomerModel>('customer_cu2');
   await Hive.openBox<BrandModel>('brands');
 
   AuthService authService = AuthService();

@@ -70,12 +70,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       ),
                       //UserName--------------------------------------------------------------
                       CustomTextFormField(
-                        // validator: (value) {
-                        //   if (value!.isEmpty) {
-                        //     return "Email is required";
-                        //   }
-                        //   return null;
-                        // },
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Email is required";
@@ -90,7 +84,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         hintText: 'Enter Email',
                         labelText: 'Email',
                         labelstyle: TextStyle(color: Colors.white),
-                        // keyboardType: TextInputType.emailAddress,
                       ),
                       const SizedBox(
                         height: 20,

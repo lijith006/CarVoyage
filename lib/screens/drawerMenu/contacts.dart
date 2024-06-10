@@ -67,7 +67,7 @@ class ContactUsPage extends StatelessWidget {
             InkWell(
               onTap: () => _launchURL('tel:+1234567890'),
               child: const Text(
-                'Phone: 9074042965',
+                'Phone: 4562658654',
                 style: TextStyle(color: Colors.blue),
               ),
             ),
@@ -75,7 +75,7 @@ class ContactUsPage extends StatelessWidget {
             InkWell(
               onTap: () => _launchURL('https://wa.me/1234567890'),
               child: const Text(
-                'WhatsApp: 9074042965',
+                'WhatsApp: 4562658654',
                 style: TextStyle(color: Colors.blue),
               ),
             ),

@@ -8,17 +8,21 @@ import 'package:flutter_project_final/screens/home_screen.dart';
 class RentedCarDetails extends StatefulWidget {
   final CustomerModel customer;
 
-  const RentedCarDetails(
-      {Key? key,
-      required this.customer,
-      required CustomerModel car,
-      required initialkilometers})
-      : super(key: key);
+  const RentedCarDetails({
+    Key? key,
+    required this.customer,
+  }) : super(key: key);
   @override
   State<RentedCarDetails> createState() => _RentedCarDetailsState();
 }
 
 class _RentedCarDetailsState extends State<RentedCarDetails> {
+  @override
+  void initState() {
+    super.initState();
+    print('Initial Kilometers details: ${widget.customer.initialkilometers}');
+  }
+
   Widget SelectedCarImage() {
     return SizedBox(
       height: 220,
@@ -145,12 +149,16 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
                   SizedBox(
                     height: 10,
                   ),
-                  buildRow('Car Rent:', widget.customer.carMonthlyRent,
+                  buildRow('Car Rent:', widget.customer.dailyRent,
                       isRupee: true),
                   SizedBox(
                     height: 10,
                   ),
-//********************************************** */
+                  buildRow(
+                      'Initial Kilometers:', widget.customer.initialkilometers),
+                  SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             ),
@@ -180,14 +188,42 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => DropoffDetails(
-                              customer: widget.customer,
-                              initialkilometers: widget.customer,
-                            ),
-                          ));
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            TextEditingController currentKilometersController =
+                                TextEditingController();
+                            return AlertDialog(
+                              title: Text('Enter Current Kilometers'),
+                              content: TextField(
+                                controller: currentKilometersController,
+                                keyboardType: TextInputType.number,
+                                decoration: InputDecoration(
+                                    hintText: 'Current Kilometers'),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Submit'),
+                                  onPressed: () {
+                                    String currentKilometers =
+                                        currentKilometersController.text;
+                                    widget.customer.currentKilometers =
+                                        currentKilometers;
+                                    Navigator.of(context).pop();
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => DropoffDetails(
+                                          customer: widget.customer,
+                                          currentKilometers: currentKilometers,
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                ),
+                              ],
+                            );
+                          });
                     },
                     icon: Icon(Icons.key_off_outlined, size: 18),
                     label: Text(
