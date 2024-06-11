@@ -47,7 +47,7 @@ class _CarSearchFilterScreenState extends State<CarSearchFilterScreen> {
           .map((car) => int.parse(car.amount))
           .reduce((a, b) => a > b ? a : b);
 
-      for (int i = minCarPrice; i <= maxCarPrice; i += 1000) {
+      for (int i = minCarPrice; i <= maxCarPrice; i += 100) {
         priceOptions.add(i.toString());
       }
       if (!priceOptions.contains(maxCarPrice.toString())) {

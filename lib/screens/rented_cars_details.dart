@@ -183,62 +183,56 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
               height: 20,
             ),
             Center(
-              child: ButtonBar(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            TextEditingController currentKilometersController =
-                                TextEditingController();
-                            return AlertDialog(
-                              title: Text('Enter Current Kilometers'),
-                              content: TextField(
-                                controller: currentKilometersController,
-                                keyboardType: TextInputType.number,
-                                decoration: InputDecoration(
-                                    hintText: 'Current Kilometers'),
-                              ),
-                              actions: <Widget>[
-                                TextButton(
-                                  child: Text('Submit'),
-                                  onPressed: () {
-                                    String currentKilometers =
-                                        currentKilometersController.text;
-                                    widget.customer.currentKilometers =
-                                        currentKilometers;
-                                    Navigator.of(context).pop();
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => DropoffDetails(
-                                          customer: widget.customer,
-                                          currentKilometers: currentKilometers,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ],
-                            );
-                          });
-                    },
-                    icon: Icon(Icons.key_off_outlined, size: 18),
-                    label: Text(
-                      'Rent off',
-                      style: TextStyle(fontSize: 14),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color.fromARGB(255, 182, 214, 135),
-                      foregroundColor: Color.fromARGB(255, 6, 6, 6),
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 13),
-                      tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    ),
-                  ),
-                ],
+              child: ElevatedButton.icon(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        TextEditingController currentKilometersController =
+                            TextEditingController();
+                        return AlertDialog(
+                          title: Text('Enter Current Kilometers'),
+                          content: TextField(
+                            controller: currentKilometersController,
+                            keyboardType: TextInputType.number,
+                            decoration:
+                                InputDecoration(hintText: 'Current Kilometers'),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: Text('Submit'),
+                              onPressed: () {
+                                String currentKilometers =
+                                    currentKilometersController.text;
+                                widget.customer.currentKilometers =
+                                    currentKilometers;
+                                Navigator.of(context).pop();
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => DropoffDetails(
+                                      customer: widget.customer,
+                                      currentKilometers: currentKilometers,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
+                        );
+                      });
+                },
+                icon: Icon(Icons.key_off_outlined, size: 18),
+                label: Text(
+                  'Rent off',
+                  style: TextStyle(fontSize: 14),
+                ),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color.fromARGB(255, 182, 214, 135),
+                  foregroundColor: Color.fromARGB(255, 6, 6, 6),
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                ),
               ),
             )
           ],

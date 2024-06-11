@@ -18,11 +18,9 @@ class DueCarsPAge extends StatelessWidget {
     final DateTime now = DateTime.now();
     final DateTime yesterday = now.subtract(Duration(days: 1));
     final DateTime due = parseDate(customer.dropOffDate);
-    //final DateTime upcomingDue = due.subtract(Duration(days: 3));
+
     if (due.isBefore(yesterday)) {
       return CarStatus.due;
-      // } else if (upcomingDue.isBefore(now)) {
-      //return CarStatus.upcomingDue;
     } else {
       return CarStatus.rented;
     }

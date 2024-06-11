@@ -32,7 +32,7 @@ class _AddCarsState extends State<AddCars> {
   final TextEditingController yearController = TextEditingController();
   final TextEditingController amountController = TextEditingController();
   final TextEditingController insuranceDateController = TextEditingController();
-  late List<String> brandNames=[];
+  late List<String> brandNames = [];
 
   @override
   void initState() {
@@ -356,7 +356,7 @@ class _AddCarsState extends State<AddCars> {
                   Text(
                     label,
                     style: TextStyle(
-                        color: Colors.black,
+                        color: Colors.white,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
                   )

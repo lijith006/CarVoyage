@@ -106,19 +106,43 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               children: [
                 DrawerHeader(
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 48, 50, 52),
-                    ),
-                    child: Center(
-                      child: Text(
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(255, 48, 50, 52),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Image.asset(
+                        'assets/Images/carvoyagepic.png',
+                        width: 100,
+                        height: 50,
+                      ),
+                      //  SizedBox(height: 1),
+                      Text(
                         'Car Voyage',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 176, 227, 44),
-                          fontSize: 35,
+                          //color: Color.fromARGB(255, 176, 227, 44),
+                          color: Colors.white, fontSize: 35,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                    )),
+                    ],
+                  ),
+                ),
+                // DrawerHeader(
+                //     decoration: BoxDecoration(
+                //       color: Color.fromARGB(255, 48, 50, 52),
+                //     ),
+                //     child: Center(
+                //       child: Text(
+                //         'Car Voyage',
+                //         style: TextStyle(
+                //           color: Color.fromARGB(255, 176, 227, 44),
+                //           fontSize: 35,
+                //           fontWeight: FontWeight.bold,
+                //         ),
+                //       ),
+                //     )),
                 ListTile(
                   leading: Icon(
                     Icons.home,

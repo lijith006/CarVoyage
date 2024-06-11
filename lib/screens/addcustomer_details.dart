@@ -114,9 +114,12 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
                         bottom: 8.0,
                         left: 8.0,
                         child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.black54,
+                            borderRadius: BorderRadius.circular(12),
+                          ),
                           padding: EdgeInsets.symmetric(
                               vertical: 4.0, horizontal: 8.0),
-                          color: Colors.black54,
                           child: Text(
                             'License Image',
                             style: TextStyle(
