@@ -1,9 +1,10 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
 import 'package:flutter_project_final/db_functions/box.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/screens/rented_cars_details.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
@@ -24,41 +25,47 @@ class _RentedCarState extends State<RentedCar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Rented Cars',
-            style: TextStyle(
-                color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Colors.transparent,
-          iconTheme: const IconThemeData(color: Colors.white),
+        appBar: CustomAppBar(
+          title: 'Rented Cars',
         ),
+        // appBar: AppBar(
+        //   title: const Text(
+        //     'Rented Cars',
+        //     style: TextStyle(
+        //         color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+        //   ),
+        //   backgroundColor: Colors.transparent,
+        //   iconTheme: const IconThemeData(color: Colors.white),
+        // ),
         backgroundColor: const Color(0xFF1E1E1E),
-        bottomNavigationBar: BottomAppBar(
-          height: 70,
-          color: Colors.black45,
-          shape: const CircularNotchedRectangle(),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ));
-                },
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  child: Image.asset(
-                    'lib/icons/house.png',
-                    color: Color.fromARGB(255, 147, 247, 150),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        // bottomNavigationBar: BottomAppBar(
+        //   height: 70,
+        //   color: Colors.black45,
+        //   shape: const CircularNotchedRectangle(),
+        //   child: Row(
+        //     children: [
+        //       GestureDetector(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (context) => HomeScreen(),
+        //               ));
+        //         },
+        //         child: Container(
+        //           height: 28,
+        //           width: 28,
+        //           child: Image.asset(
+        //             'lib/icons/house.png',
+        //             color: Color.fromARGB(255, 147, 247, 150),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        bottomNavigationBar: buildCustomBottomAppBar(
+          context: context,
         ),
         body: ValueListenableBuilder<Box<CustomerModel>>(
             valueListenable: Boxes.getCustomerData().listenable(),

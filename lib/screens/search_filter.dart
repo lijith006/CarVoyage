@@ -105,11 +105,11 @@ class _CarSearchFilterScreenState extends State<CarSearchFilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Color.fromARGB(255, 147, 247, 150),
+        foregroundColor: Colors.white,
         backgroundColor: Color.fromARGB(115, 46, 44, 44),
         title: Text(
           'Search',
-          style: TextStyle(color: const Color.fromARGB(255, 212, 212, 203)),
+          style: TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
@@ -137,11 +137,11 @@ class _CarSearchFilterScreenState extends State<CarSearchFilterScreen> {
                   hintStyle: TextStyle(color: Colors.grey),
                   labelText: 'Search',
                   labelStyle: TextStyle(
-                    color: Color.fromARGB(255, 147, 247, 150),
+                    color: Colors.white,
                   ),
                   prefixIcon: Icon(
                     Icons.search,
-                    color: Color.fromARGB(255, 147, 247, 150),
+                    color: Colors.white,
                   ),
                   border: OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.white),
@@ -251,154 +251,124 @@ class _CarSearchFilterScreenState extends State<CarSearchFilterScreen> {
               style: TextStyle(color: Colors.yellow),
             ),
             SizedBox(height: 16.0),
-            filteredCarsList.isEmpty
-                ? Center(
-                    child: Text(
-                      'No cars available',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )
-                : ListView.builder(
-                    shrinkWrap: true,
-                    itemCount: filteredCarsList.length,
-                    itemBuilder: (context, index) {
-                      final car = filteredCarsList[index];
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => CarSelect(car: car),
-                            ),
-                          );
-                        },
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundImage: FileImage(File(car.selectedImage)),
-                            radius: 25,
-                          ),
-                          title: Text(car.brand,
-                              style: TextStyle(
-                                color: Color.fromARGB(255, 253, 255, 253),
-                              )),
-                          subtitle: Text(
-                            car.model,
-                            style: TextStyle(
-                                color: Color.fromARGB(255, 252, 252, 252)),
-                          ),
+            if (filteredCarsList.isEmpty)
+              Center(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.6,
+                  alignment: Alignment.center,
+                  child: Text(
+                    'No cars available',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              )
+            else
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: filteredCarsList.length,
+                itemBuilder: (context, index) {
+                  final car = filteredCarsList[index];
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => CarSelect(car: car),
                         ),
                       );
                     },
-                  ),
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundImage: FileImage(File(car.selectedImage)),
+                        radius: 25,
+                      ),
+                      title: Text(car.brand,
+                          style: TextStyle(
+                            color: Color.fromARGB(255, 253, 255, 253),
+                          )),
+                      subtitle: Text(
+                        car.model,
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 252, 252, 252)),
+                      ),
+                    ),
+                  );
+                },
+              ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildFilterDropDown(String title, List<String> items, String? value,
-      void Function(String?) onChanged) {
-    if (items.isEmpty) {
-      return DropdownButton<String>(
-        items: [
-          DropdownMenuItem(
-            value: null,
-            child: Text('No items available'),
-          )
-        ],
-        hint: Text(
-          title,
-          style: TextStyle(color: Colors.grey),
-        ),
-        onChanged: null,
-      );
-    } else {
-      return DropdownButton<String>(
-        dropdownColor: Colors.black,
-        style: TextStyle(color: Colors.white),
-        value: value,
-        onChanged: onChanged,
-        items: _buildDropdownItems(items),
-        hint: Text(
-          title,
+  Widget _buildFilterDropDown(
+    String label,
+    List<String> items,
+    String? selectedValue,
+    ValueChanged<String?> onChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
           style: TextStyle(color: Colors.white),
         ),
-      );
-    }
-  }
-
-  Widget _buildPriceDropDown(String title, String? value, List<String> items,
-      void Function(String?) onChanged) {
-    if (items.isEmpty) {
-      return DropdownButton<String>(
-        items: [
-          DropdownMenuItem(
-            value: null,
-            child: Text('No items available'),
-          )
-        ],
-        hint: Text(
-          title,
-          style: TextStyle(color: Colors.grey),
-        ),
-        onChanged: null,
-      );
-    } else {
-      return DropdownButton<String>(
-        style: TextStyle(color: Colors.white),
-        dropdownColor: Colors.black,
-        value: value,
-        onChanged: onChanged,
-        items: _buildPriceDropdownItems(items),
-        hint: Text(
-          title,
+        DropdownButton<String>(
+          value: selectedValue,
+          onChanged: onChanged,
+          items: [
+            DropdownMenuItem<String>(
+              value: 'None',
+              child: Text('None'),
+            ),
+            ...items.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ],
+          dropdownColor: Color.fromARGB(182, 46, 44, 44),
           style: TextStyle(color: Colors.white),
         ),
-      );
-    }
+      ],
+    );
   }
 
-  List<DropdownMenuItem<String>> _buildDropdownItems(List<String> items) {
-    List<DropdownMenuItem<String>> dropdownItems = [];
-
-    dropdownItems.add(
-      DropdownMenuItem<String>(
-        value: 'None',
-        child: Text('None'),
-      ),
+  Widget _buildPriceDropDown(
+    String label,
+    String? selectedValue,
+    List<String> items,
+    ValueChanged<String?> onChanged,
+  ) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(color: Colors.white),
+        ),
+        DropdownButton<String>(
+          value: selectedValue,
+          onChanged: onChanged,
+          items: [
+            DropdownMenuItem<String>(
+              value: 'None',
+              child: Text('None'),
+            ),
+            ...items.map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ],
+          dropdownColor: Color.fromARGB(115, 46, 44, 44),
+          style: TextStyle(color: Colors.white),
+        ),
+      ],
     );
-
-    dropdownItems.addAll(
-      items.map((item) {
-        return DropdownMenuItem<String>(
-          value: item,
-          child: Text(item),
-        );
-      }),
-    );
-
-    return dropdownItems;
-  }
-
-  List<DropdownMenuItem<String>> _buildPriceDropdownItems(List<String> prices) {
-    List<DropdownMenuItem<String>> dropdownItems = [];
-
-    dropdownItems.add(
-      DropdownMenuItem<String>(
-        value: 'None',
-        child: Text('None'),
-      ),
-    );
-
-    dropdownItems.addAll(
-      prices.map((price) {
-        return DropdownMenuItem<String>(
-          value: price,
-          child: Text(price),
-        );
-      }).toList(),
-    );
-
-    return dropdownItems;
   }
 }

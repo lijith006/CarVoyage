@@ -1,6 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
+import 'package:flutter_project_final/components/custom_elevated_all.dart';
 import 'package:flutter_project_final/components/custom_text_field.dart';
 import 'package:flutter_project_final/db_functions/box.dart';
 import 'package:flutter_project_final/db_functions/car_db_functions.dart';
@@ -94,22 +97,17 @@ class _DropoffDetailsState extends State<DropoffDetails> {
         currentKilometersController.text.isNotEmpty) {
       double initialKilometer = double.parse(initialKilometersController.text);
       double currentKilometer = double.parse(currentKilometersController.text);
-      drivenKilometers = currentKilometer - initialKilometer;
+      if (currentKilometer >= initialKilometer) {
+        drivenKilometers = currentKilometer - initialKilometer;
+      } else {
+        drivenKilometers = 0;
+      }
       drivenKilometersController.text = drivenKilometers.toString();
       totalRent = calculateTotalRent(
           drivenKilometers, double.parse(dailyRentController.text));
       setState(() {});
     }
   }
-
-  // Future<void> markAsAvailable(CarsModel car) async {
-  //   car.status = 'available';
-  //   await car.save();
-  //   setState(() {
-  //     carListNotifier.value.add(car);
-  //     carListNotifier.notifyListeners();
-  //   // })
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -120,58 +118,12 @@ class _DropoffDetailsState extends State<DropoffDetails> {
             valueListenable: Boxes.getData().listenable(),
             builder: (context, carBox, _) {
               return Scaffold(
-                appBar: AppBar(
-                  leading: IconButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Colors.white,
-                      )),
-                  title: const Row(
-                    children: [
-                      SizedBox(
-                        width: 65,
-                      ),
-                      Text(
-                        'DROP OFF DETAILS',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 22,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  backgroundColor: Color.fromARGB(0, 150, 232, 19),
-                  iconTheme: const IconThemeData(color: Colors.white),
+                appBar: CustomAppBar(
+                  title: 'Drop off details',
                 ),
                 backgroundColor: Color.fromARGB(5, 255, 255, 255),
-                bottomNavigationBar: BottomAppBar(
-                  height: 70,
-                  color: Color.fromARGB(115, 50, 49, 49),
-                  shape: const CircularNotchedRectangle(),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => HomeScreen(),
-                              ));
-                        },
-                        child: Container(
-                          height: 28,
-                          width: 28,
-                          child: Image.asset(
-                            'lib/icons/house.png',
-                            color: Color.fromARGB(255, 147, 247, 150),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                bottomNavigationBar: buildCustomBottomAppBar(
+                  context: context,
                 ),
                 body: SingleChildScrollView(
                   child: Padding(
@@ -263,32 +215,50 @@ class _DropoffDetailsState extends State<DropoffDetails> {
                           ),
                         ),
                         Gap(15),
-                        ElevatedButton(
-                            onPressed: () {
-                              Navigator.pop(context);
-                              removeCustomerFromScreen(widget.customer);
-                              saveDetails();
-                              verifyCarAdded();
+                        CustomButtonAll(
+                          label: 'Submit',
+                          onPressed: () {
+                            Navigator.pop(context);
+                            removeCustomerFromScreen(widget.customer);
+                            saveDetails();
+                            verifyCarAdded();
 
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => HomeScreen(),
-                                ),
-                              );
-                              print('Result Rent:${totalRent}');
-                            },
-                            child: Text('Submit'),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor:
-                                  Color.fromARGB(255, 182, 214, 135),
-                              foregroundColor:
-                                  const Color.fromARGB(255, 6, 6, 6),
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 28,
-                                vertical: 10,
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => HomeScreen(),
                               ),
-                            ))
+                            );
+                            print('Result Rent:${totalRent}');
+                          },
+                        ),
+
+                        // ElevatedButton(
+                        //     onPressed: () {
+                        //       Navigator.pop(context);
+                        //       removeCustomerFromScreen(widget.customer);
+                        //       saveDetails();
+                        //       verifyCarAdded();
+
+                        //       Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //           builder: (context) => HomeScreen(),
+                        //         ),
+                        //       );
+                        //       print('Result Rent:${totalRent}');
+                        //     },
+                        //     child: Text('Submit'),
+                        //     style: ElevatedButton.styleFrom(
+                        //       backgroundColor:
+                        //           Color.fromARGB(255, 182, 214, 135),
+                        //       foregroundColor:
+                        //           const Color.fromARGB(255, 6, 6, 6),
+                        //       padding: EdgeInsets.symmetric(
+                        //         horizontal: 28,
+                        //         vertical: 10,
+                        //       ),
+                        //     ))
                       ],
                     )),
                   ),

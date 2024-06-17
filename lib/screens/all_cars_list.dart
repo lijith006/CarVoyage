@@ -1,9 +1,10 @@
 import 'dart:io';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
 import 'package:flutter_project_final/db_functions/box.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_project_final/screens/cars_details.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/screens/search_filter.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -19,68 +20,82 @@ class _AllCarListState extends State<AllCarList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'Available Cars',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          backgroundColor: Colors.transparent,
-          iconTheme: const IconThemeData(color: Colors.white),
+        appBar: CustomAppBar(
+          title: 'Available Cars',
         ),
+        // appBar: AppBar(
+        //   title: const Text(
+        //     'Available Cars',
+        //     style: TextStyle(
+        //       color: Colors.white,
+        //       fontSize: 22,
+        //       fontWeight: FontWeight.bold,
+        //     ),
+        //   ),
+        //   backgroundColor: Colors.transparent,
+        //   iconTheme: const IconThemeData(color: Colors.white),
+        // ),
         backgroundColor: Color.fromARGB(115, 50, 49, 49),
-        bottomNavigationBar: BottomAppBar(
-          height: 70,
-          color: Color.fromARGB(115, 50, 49, 49),
-          shape: const CircularNotchedRectangle(),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ));
-                },
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  child: Image.asset(
-                    'lib/icons/house.png',
-                    color: Color.fromARGB(255, 147, 247, 150),
-                  ),
-                ),
+        bottomNavigationBar: buildCustomBottomAppBar(
+          context: context,
+          showSearch: true,
+          onSearchTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => CarSearchFilterScreen(),
               ),
-              const Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => (CarSearchFilterScreen()),
-                      ));
-                },
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  child: Image.asset(
-                    'lib/icons/search.png',
-                    color: Color.fromARGB(255, 147, 247, 150),
-                  ),
-                ),
-              )
-            ],
-          ),
+            );
+          },
         ),
+        // bottomNavigationBar: BottomAppBar(
+        //   height: 70,
+        //   color: Color.fromARGB(115, 50, 49, 49),
+        //   shape: const CircularNotchedRectangle(),
+        //   child: Row(
+        //     children: [
+        //       GestureDetector(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (context) => HomeScreen(),
+        //               ));
+        //         },
+        //         child: Container(
+        //           height: 28,
+        //           width: 28,
+        //           child: Image.asset(
+        //             'lib/icons/house.png',
+        //             color: Color.fromARGB(255, 147, 247, 150),
+        //           ),
+        //         ),
+        //       ),
+        //       const Spacer(),
+        //       GestureDetector(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (context) => (CarSearchFilterScreen()),
+        //               ));
+        //         },
+        //         child: Container(
+        //           height: 28,
+        //           width: 28,
+        //           child: Image.asset(
+        //             'lib/icons/search.png',
+        //             color: Color.fromARGB(255, 147, 247, 150),
+        //           ),
+        //         ),
+        //       )
+        //     ],
+        //   ),
+        // ),
         body: ValueListenableBuilder<Box<CarsModel>>(
             valueListenable: Boxes.getData().listenable(),
             builder: (context, box, _) {
               var data = box.values.toList().cast<CarsModel>();
-//var data= box.values.where((car) => car.status == 'available').toList().cast<CarsModel>();
               if (data.isEmpty) {
                 return Center(
                   child: Text(

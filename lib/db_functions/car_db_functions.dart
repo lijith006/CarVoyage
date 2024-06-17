@@ -30,6 +30,13 @@ Future<void> getCars() async {
   carListNotifier.notifyListeners();
 }
 
+Future<void> getAllCustomers() async {
+  final customerDB = await Hive.openBox<CustomerModel>('customer_cu2');
+  customerListNotifier.value.clear();
+  customerListNotifier.value.addAll(customerDB.values);
+  customerListNotifier.notifyListeners();
+}
+
 Future<void> deletecar(CarsModel car) async {
   await car.delete();
   getCars();

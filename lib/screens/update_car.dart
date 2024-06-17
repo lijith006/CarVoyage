@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/components/custom_drop_down.dart';
 import 'package:flutter_project_final/components/custom_text_field.dart';
 import 'package:image_picker/image_picker.dart';
@@ -58,58 +59,38 @@ class _UpdateCarState extends State<UpdateCar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              icon: const Icon(
-                Icons.arrow_back_ios,
-                color: Colors.white,
-              )),
-          title: const Row(
-            children: [
-              SizedBox(
-                width: 55,
-              ),
-              Text(
-                'UPDATE CARS',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.transparent,
-          iconTheme: const IconThemeData(color: Colors.white),
+        appBar: CustomAppBar(
+          title: 'Update Cars',
         ),
         backgroundColor: Color.fromARGB(115, 50, 49, 49),
-        bottomNavigationBar: BottomAppBar(
-          height: 70,
-          color: Color.fromARGB(115, 50, 49, 49),
-          shape: const CircularNotchedRectangle(),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ));
-                },
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  child: Image.asset(
-                    'lib/icons/house.png',
-                    color: Color.fromARGB(255, 147, 247, 150),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        // bottomNavigationBar: BottomAppBar(
+        //   height: 70,
+        //   color: Color.fromARGB(115, 50, 49, 49),
+        //   shape: const CircularNotchedRectangle(),
+        //   child: Row(
+        //     children: [
+        //       GestureDetector(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (context) => HomeScreen(),
+        //               ));
+        //         },
+        //         child: Container(
+        //           height: 28,
+        //           width: 28,
+        //           child: Image.asset(
+        //             'lib/icons/house.png',
+        //             color: Color.fromARGB(255, 147, 247, 150),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        bottomNavigationBar: buildCustomBottomAppBar(
+          context: context,
         ),
         body: SingleChildScrollView(
           child: Column(children: [

@@ -1,8 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/screens/rented_cars_details.dart';
 import 'package:hive_flutter/adapters.dart';
 
@@ -63,31 +63,8 @@ class DueCarsPAge extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.white),
         ),
         backgroundColor: Color.fromARGB(115, 50, 49, 49),
-        bottomNavigationBar: BottomAppBar(
-          height: 70,
-          color: Color.fromARGB(115, 50, 49, 49),
-          shape: const CircularNotchedRectangle(),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ));
-                },
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  child: Image.asset(
-                    'lib/icons/house.png',
-                    color: Color.fromARGB(255, 147, 247, 150),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        bottomNavigationBar: buildCustomBottomAppBar(
+          context: context,
         ),
         body: dueCars.isEmpty
             ? Center(

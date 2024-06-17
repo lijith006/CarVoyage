@@ -1,9 +1,12 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_phone_direct_caller/flutter_phone_direct_caller.dart';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
+import 'package:flutter_project_final/components/custom_elevated_all.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
 import 'package:flutter_project_final/screens/dropoff_details.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 
 class RentedCarDetails extends StatefulWidget {
   final CustomerModel customer;
@@ -46,61 +49,19 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
     );
   }
 
+  Future<void> makePhoneCall(String phoneNumber) async {
+    await FlutterPhoneDirectCaller.callNumber(phoneNumber);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            icon: const Icon(
-              Icons.arrow_back_ios,
-              color: Colors.white,
-            )),
-        title: const Row(
-          children: [
-            SizedBox(
-              width: 50,
-            ),
-            Text(
-              'Rented Cars Details',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        backgroundColor: Color.fromARGB(0, 150, 232, 19),
-        iconTheme: const IconThemeData(color: Colors.white),
+      appBar: CustomAppBar(
+        title: 'Rented Car Details',
       ),
       backgroundColor: Color.fromARGB(5, 255, 255, 255),
-      bottomNavigationBar: BottomAppBar(
-        height: 70,
-        color: Color.fromARGB(115, 50, 49, 49),
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ));
-              },
-              child: Container(
-                height: 28,
-                width: 28,
-                child: Image.asset(
-                  'lib/icons/house.png',
-                  color: Color.fromARGB(255, 147, 247, 150),
-                ),
-              ),
-            ),
-          ],
-        ),
+      bottomNavigationBar: buildCustomBottomAppBar(
+        context: context,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -117,7 +78,16 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
                   SizedBox(
                     height: 10,
                   ),
-                  buildRow('Contact number:', widget.customer.contactNumber),
+                  GestureDetector(
+                    onTap: () async {
+                      await makePhoneCall(widget.customer.contactNumber);
+                    },
+                    child: buildRow(
+                      'Contact number:',
+                      widget.customer.contactNumber,
+                      valueColor: Colors.cyan,
+                    ),
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -183,7 +153,60 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
               height: 20,
             ),
             Center(
-              child: ElevatedButton.icon(
+              // child: ElevatedButton.icon(
+              //   onPressed: () {
+              //     showDialog(
+              //         context: context,
+              //         builder: (BuildContext context) {
+              //           TextEditingController currentKilometersController =
+              //               TextEditingController();
+              //           return AlertDialog(
+              //             title: Text('Enter Current Kilometers'),
+              //             content: TextField(
+              //               controller: currentKilometersController,
+              //               keyboardType: TextInputType.number,
+              //               decoration:
+              //                   InputDecoration(hintText: 'Current Kilometers'),
+              //             ),
+              //             actions: <Widget>[
+              //               TextButton(
+              //                 child: Text('Submit'),
+              //                 onPressed: () {
+              //                   String currentKilometers =
+              //                       currentKilometersController.text;
+              //                   widget.customer.currentKilometers =
+              //                       currentKilometers;
+              //                   Navigator.of(context).pop();
+              //                   Navigator.push(
+              //                     context,
+              //                     MaterialPageRoute(
+              //                       builder: (context) => DropoffDetails(
+              //                         customer: widget.customer,
+              //                         currentKilometers: currentKilometers,
+              //                       ),
+              //                     ),
+              //                   );
+              //                 },
+              //               ),
+              //             ],
+              //           );
+              //         });
+              //   },
+              //   icon: Icon(Icons.key_off_outlined, size: 18),
+              //   label: Text(
+              //     'Rent off',
+              //     style: TextStyle(fontSize: 14),
+              //   ),
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: Color.fromARGB(255, 182, 214, 135),
+              //     foregroundColor: Color.fromARGB(255, 6, 6, 6),
+              //     padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
+              //     tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              //   ),
+              //  ),
+              child: CustomButtonAll(
+                icon: Icons.key_off_outlined,
+                label: 'Rent off',
                 onPressed: () {
                   showDialog(
                       context: context,
@@ -222,17 +245,6 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
                         );
                       });
                 },
-                icon: Icon(Icons.key_off_outlined, size: 18),
-                label: Text(
-                  'Rent off',
-                  style: TextStyle(fontSize: 14),
-                ),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 182, 214, 135),
-                  foregroundColor: Color.fromARGB(255, 6, 6, 6),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 13),
-                  tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                ),
               ),
             )
           ],
@@ -241,7 +253,8 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
     );
   }
 
-  Widget buildRow(String label, String value, {bool isRupee = false}) {
+  Widget buildRow(String label, String value,
+      {bool isRupee = false, Color? valueColor}) {
     return Row(
       children: [
         Text(
@@ -251,8 +264,7 @@ class _RentedCarDetailsState extends State<RentedCarDetails> {
         Expanded(
             child: Text(
           isRupee ? '\₹${value}' : value,
-          style: TextStyle(
-              color: Color.fromARGB(255, 147, 247, 150), fontSize: 17),
+          style: TextStyle(color: valueColor ?? Colors.yellow, fontSize: 17),
           textAlign: TextAlign.right,
         ))
       ],

@@ -1,9 +1,11 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
+import 'package:flutter_project_final/components/custom_elevated_all.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
 import 'package:flutter_project_final/screens/addcustomer_details.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/components/custom_text_field.dart';
 import 'package:intl/intl.dart';
 
@@ -83,50 +85,56 @@ class _CarSelectState extends State<CarSelect> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Row(
-            children: [
-              SizedBox(
-                width: 50,
-              ),
-              Text(
-                'CAR SELECTION',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          backgroundColor: Colors.transparent,
-          iconTheme: const IconThemeData(color: Colors.white),
+        appBar: CustomAppBar(
+          title: 'Car Selection',
         ),
+        // appBar: AppBar(
+        //   title: const Row(
+        //     children: [
+        //       SizedBox(
+        //         width: 50,
+        //       ),
+        //       Text(
+        //         'CAR SELECTION',
+        //         style: TextStyle(
+        //             color: Colors.white,
+        //             fontSize: 22,
+        //             fontWeight: FontWeight.bold),
+        //       ),
+        //     ],
+        //   ),
+        //   backgroundColor: Colors.transparent,
+        //   iconTheme: const IconThemeData(color: Colors.white),
+        // ),
         backgroundColor: Color.fromARGB(115, 50, 49, 49),
-        bottomNavigationBar: BottomAppBar(
-          height: 70,
-          color: Color.fromARGB(115, 50, 49, 49),
-          shape: const CircularNotchedRectangle(),
-          child: Row(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
-                      ));
-                },
-                child: Container(
-                  height: 28,
-                  width: 28,
-                  child: Image.asset(
-                    'lib/icons/house.png',
-                    color: Color.fromARGB(255, 147, 247, 150),
-                  ),
-                ),
-              ),
-            ],
-          ),
+        // bottomNavigationBar: BottomAppBar(
+        //   height: 70,
+        //   color: Color.fromARGB(115, 50, 49, 49),
+        //   shape: const CircularNotchedRectangle(),
+        //   child: Row(
+        //     children: [
+        //       GestureDetector(
+        //         onTap: () {
+        //           Navigator.push(
+        //               context,
+        //               MaterialPageRoute(
+        //                 builder: (context) => HomeScreen(),
+        //               ));
+        //         },
+        //         child: Container(
+        //           height: 28,
+        //           width: 28,
+        //           child: Image.asset(
+        //             'lib/icons/house.png',
+        //             color: Color.fromARGB(255, 147, 247, 150),
+        //           ),
+        //         ),
+        //       ),
+        //     ],
+        //   ),
+        // ),
+        bottomNavigationBar: buildCustomBottomAppBar(
+          context: context,
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -242,6 +250,7 @@ class _CarSelectState extends State<CarSelect> {
                   height: 20,
                 ),
                 CustomTextField(
+                  keyboardType: TextInputType.number,
                   hintText: 'Enter the Kilometers',
                   labelText: 'Initial Kilometer',
                   controller: initialKilometersController,
@@ -271,31 +280,49 @@ class _CarSelectState extends State<CarSelect> {
                 insuranceCertImage(),
                 const SizedBox(height: 20),
                 //***************************************** */
-                ElevatedButton.icon(
-                  style: ButtonStyle(
-                      padding: MaterialStatePropertyAll(
-                        EdgeInsets.symmetric(horizontal: 28, vertical: 10),
-                      ),
-                      foregroundColor: MaterialStatePropertyAll(Colors.black),
-                      backgroundColor: MaterialStatePropertyAll(
-                        Color.fromARGB(255, 182, 214, 135),
-                      )),
+                CustomButtonAll(
+                  icon: Icons.save,
+                  label: 'Add user details',
                   onPressed: () {
                     if (_formKey.currentState!.validate() && validateDates()) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => AddCustomerDetails(
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AddCustomerDetails(
                             car: widget.car,
                             initialkilometers: initialKilometersController.text,
                             pickUpDate: pickUpDateController.text,
-                            dropOffDate: dropOffDateController.text),
-                      ));
+                            dropOffDate: dropOffDateController.text,
+                          ),
+                        ),
+                      );
                     }
                   },
-                  icon: const Icon(Icons.save, color: Colors.black),
-                  label: const Text(
-                    'Add user details',
-                  ),
                 ),
+                // ElevatedButton.icon(
+                //   style: ButtonStyle(
+                //       padding: MaterialStatePropertyAll(
+                //         EdgeInsets.symmetric(horizontal: 28, vertical: 10),
+                //       ),
+                //       foregroundColor: MaterialStatePropertyAll(Colors.black),
+                //       backgroundColor: MaterialStatePropertyAll(
+                //         Color.fromARGB(255, 182, 214, 135),
+                //       )),
+                //   onPressed: () {
+                //     if (_formKey.currentState!.validate() && validateDates()) {
+                //       Navigator.of(context).push(MaterialPageRoute(
+                //         builder: (context) => AddCustomerDetails(
+                //             car: widget.car,
+                //             initialkilometers: initialKilometersController.text,
+                //             pickUpDate: pickUpDateController.text,
+                //             dropOffDate: dropOffDateController.text),
+                //       ));
+                //     }
+                //   },
+                //   icon: const Icon(Icons.save, color: Colors.black),
+                //   label: const Text(
+                //     'Add user details',
+                //   ),
+                // ),
               ]),
             ),
           ),

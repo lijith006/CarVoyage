@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 
 class Privacy extends StatefulWidget {
   const Privacy({Key? key}) : super(key: key);
@@ -95,30 +94,6 @@ class _PrivacyState extends State<Privacy> {
             _buildSectionTitle('Updates to This Privacy Policy'),
             _buildBulletPoint(
                 'We may update this Privacy Policy periodically to reflect changes in our practices or legal requirements. '),
-          ],
-        ),
-      ),
-      bottomNavigationBar: BottomAppBar(
-        height: 70,
-        color: Color.fromARGB(115, 50, 49, 49),
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.home),
-              color: Colors.white,
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
-                ));
-              },
-            ),
-            const Spacer(),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.account_box_outlined),
-              color: Colors.white,
-            ),
           ],
         ),
       ),

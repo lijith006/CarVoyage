@@ -1,10 +1,12 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
+import 'package:flutter_project_final/components/custom_elevated_all.dart';
 import 'package:flutter_project_final/screens/rented_cars.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter_project_final/db_functions/car_db_functions.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/components/custom_text_field.dart';
 
 class AddCustomerDetails extends StatefulWidget {
@@ -38,44 +40,49 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'Add Customer Details',
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 22,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.white),
-      ),
+      appBar: CustomAppBar(
+        title: 'Add customer details',
+      ), // appBar: AppBar(
+      //   title: const Text(
+      //     'Add Customer Details',
+      //     style: TextStyle(
+      //       color: Colors.white,
+      //       fontSize: 22,
+      //       fontWeight: FontWeight.bold,
+      //     ),
+      //   ),
+      //   backgroundColor: Colors.transparent,
+      //   iconTheme: const IconThemeData(color: Colors.white),
+      // ),
       backgroundColor: const Color(0xFF1E1E1E),
-      bottomNavigationBar: BottomAppBar(
-        height: 70,
-        color: Color.fromARGB(115, 50, 49, 49),
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ));
-              },
-              child: Container(
-                height: 28,
-                width: 28,
-                child: Image.asset(
-                  'lib/icons/house.png',
-                  color: Color.fromARGB(255, 147, 247, 150),
-                ),
-              ),
-            ),
-          ],
-        ),
+      // bottomNavigationBar: BottomAppBar(
+      //   height: 70,
+      //   color: Color.fromARGB(115, 50, 49, 49),
+      //   shape: const CircularNotchedRectangle(),
+      //   child: Row(
+      //     children: [
+      //       GestureDetector(
+      //         onTap: () {
+      //           Navigator.push(
+      //               context,
+      //               MaterialPageRoute(
+      //                 builder: (context) => HomeScreen(),
+      //               ));
+      //         },
+      //         child: Container(
+      //           height: 28,
+      //           width: 28,
+      //           child: Image.asset(
+      //             'lib/icons/house.png',
+      //             color: Color.fromARGB(255, 147, 247, 150),
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      bottomNavigationBar: buildCustomBottomAppBar(
+        context: context,
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -221,7 +228,49 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
                       },
                     ),
                     const SizedBox(height: 20),
-                    ElevatedButton.icon(
+                    // ElevatedButton.icon(
+                    //   onPressed: () async {
+                    //     if (licenseImage == null) {
+                    //       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    //         content: Text('Please upload a license image'),
+                    //         backgroundColor: Colors.red,
+                    //       ));
+                    //       return;
+                    //     }
+                    //     ;
+                    //     if (formKey.currentState!.validate()) {
+                    //       removedCar(widget.car);
+                    //       await saveRentOut();
+
+                    //       ScaffoldMessenger.of(context).showSnackBar(
+                    //         SnackBar(
+                    //           content: Text('Car rented out successfully!'),
+                    //           backgroundColor: Colors.green,
+                    //         ),
+                    //       );
+                    //       Navigator.pushAndRemoveUntil(
+                    //           context,
+                    //           MaterialPageRoute(
+                    //             builder: (context) => RentedCar(),
+                    //           ),
+                    //           (route) => false);
+                    //     }
+                    //   },
+                    //   style: ElevatedButton.styleFrom(
+                    //     backgroundColor:
+                    //         const Color.fromARGB(255, 182, 214, 135),
+                    //     foregroundColor: const Color.fromARGB(255, 6, 6, 6),
+                    //     padding: const EdgeInsets.symmetric(
+                    //       horizontal: 28,
+                    //       vertical: 10,
+                    //     ),
+                    //   ),
+                    //   icon: const Icon(Icons.save_outlined),
+                    //   label: const Text('Rent'),
+                    // ),
+                    CustomButtonAll(
+                      label: 'Rent',
+                      icon: Icons.save_outlined,
                       onPressed: () async {
                         if (licenseImage == null) {
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -230,7 +279,6 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
                           ));
                           return;
                         }
-                        ;
                         if (formKey.currentState!.validate()) {
                           removedCar(widget.car);
                           await saveRentOut();
@@ -247,24 +295,8 @@ class _CustomerDetailsState extends State<AddCustomerDetails> {
                                 builder: (context) => RentedCar(),
                               ),
                               (route) => false);
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //       builder: (context) => RentedCar(),
-                          //     ));
                         }
                       },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor:
-                            const Color.fromARGB(255, 182, 214, 135),
-                        foregroundColor: const Color.fromARGB(255, 6, 6, 6),
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 28,
-                          vertical: 10,
-                        ),
-                      ),
-                      icon: const Icon(Icons.save_outlined),
-                      label: const Text('Rent'),
                     ),
                   ],
                 ),

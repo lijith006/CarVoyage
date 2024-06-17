@@ -2,12 +2,13 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_project_final/components/bottom_app_bar.dart';
+import 'package:flutter_project_final/components/custom_elevated_all.dart';
 import 'package:flutter_project_final/db_functions/car_db_functions.dart';
 import 'package:flutter_project_final/components/custom_drop_down.dart';
 import 'package:flutter_project_final/models/brandmodel.dart';
 import 'package:gap/gap.dart';
 import 'package:flutter_project_final/models/carsmodel.dart';
-import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/components/custom_text_field.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:image_picker/image_picker.dart';
@@ -62,31 +63,34 @@ class _AddCarsState extends State<AddCars> {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       backgroundColor: const Color(0xFF1E1E1E),
-      bottomNavigationBar: BottomAppBar(
-        height: 70,
-        color: Colors.black45,
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          children: [
-            GestureDetector(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => HomeScreen(),
-                    ));
-              },
-              child: Container(
-                height: 28,
-                width: 28,
-                child: Image.asset(
-                  'lib/icons/house.png',
-                  color: Color.fromARGB(255, 147, 247, 150),
-                ),
-              ),
-            ),
-          ],
-        ),
+      // bottomNavigationBar: BottomAppBar(
+      //   height: 70,
+      //   color: Colors.black45,
+      //   shape: const CircularNotchedRectangle(),
+      //   child: Row(
+      //     children: [
+      //       GestureDetector(
+      //         onTap: () {
+      //           Navigator.push(
+      //               context,
+      //               MaterialPageRoute(
+      //                 builder: (context) => HomeScreen(),
+      //               ));
+      //         },
+      //         child: Container(
+      //           height: 28,
+      //           width: 28,
+      //           child: Image.asset(
+      //             'lib/icons/house.png',
+      //             color: Color.fromARGB(255, 147, 247, 150),
+      //           ),
+      //         ),
+      //       ),
+      //     ],
+      //   ),
+      // ),
+      bottomNavigationBar: buildCustomBottomAppBar(
+        context: context,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -267,29 +271,41 @@ class _AddCarsState extends State<AddCars> {
                     });
                   }),
                   Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        ElevatedButton.icon(
+                        // ElevatedButton.icon(
+                        //   onPressed: () async {
+                        //     if (formKey.currentState!.validate()) {
+                        //       SaveCars();
+                        //     }
+                        //   },
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: Color.fromARGB(255, 182, 214, 135),
+                        //     foregroundColor: const Color.fromARGB(255, 6, 6, 6),
+                        //     padding: EdgeInsets.symmetric(
+                        //       horizontal: 28,
+                        //       vertical: 10,
+                        //     ),
+                        //   ),
+                        //   icon: const Icon(Icons.save_outlined),
+                        //   label: const Text('Save'),
+                        // ),
+                        // const SizedBox(width: 20),
+                        CustomButtonAll(
+                          label: ' Save ',
+                          icon: Icons.save_outlined,
                           onPressed: () async {
                             if (formKey.currentState!.validate()) {
                               SaveCars();
                             }
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 182, 214, 135),
-                            foregroundColor: const Color.fromARGB(255, 6, 6, 6),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 28,
-                              vertical: 10,
-                            ),
-                          ),
-                          icon: const Icon(Icons.save_outlined),
-                          label: const Text('Save'),
                         ),
                         const SizedBox(width: 40),
-                        ElevatedButton.icon(
+                        CustomButtonAll(
+                          label: 'Cancel',
+                          icon: Icons.cancel_outlined,
                           onPressed: () {
                             image25 = null;
 
@@ -303,17 +319,33 @@ class _AddCarsState extends State<AddCars> {
                               seat = null;
                             });
                           },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Color.fromARGB(255, 182, 214, 135),
-                            foregroundColor: const Color.fromARGB(255, 6, 6, 6),
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 28,
-                              vertical: 10,
-                            ),
-                          ),
-                          icon: const Icon(Icons.cancel_outlined),
-                          label: const Text('Cancel'),
-                        )
+                        ),
+
+                        // ElevatedButton.icon(
+                        //   onPressed: () {
+                        //     image25 = null;
+
+                        //     modelNameController.clear();
+                        //     yearController.clear();
+                        //     amountController.clear();
+                        //     insuranceDateController.clear();
+                        //     setState(() {
+                        //       selectedBrand = null;
+                        //       fuel = null;
+                        //       seat = null;
+                        //     });
+                        //   },
+                        //   style: ElevatedButton.styleFrom(
+                        //     backgroundColor: Color.fromARGB(255, 182, 214, 135),
+                        //     foregroundColor: const Color.fromARGB(255, 6, 6, 6),
+                        //     padding: EdgeInsets.symmetric(
+                        //       horizontal: 28,
+                        //       vertical: 10,
+                        //     ),
+                        //   ),
+                        //   icon: const Icon(Icons.cancel_outlined),
+                        //   label: const Text('Cancel'),
+                        // )
                       ],
                     ),
                   ),

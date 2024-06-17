@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_project_final/components/appbar.dart';
+import 'package:flutter_project_final/components/custom_elevated_all.dart';
 import 'package:flutter_project_final/models/brandmodel.dart';
 import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -20,24 +22,27 @@ class _BrandPageState extends State<BrandPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Row(
-          children: [
-            SizedBox(
-              width: 65,
-            ),
-            Text(
-              'Add Brands',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-        backgroundColor: Colors.transparent,
-        iconTheme: const IconThemeData(color: Colors.white),
+      appBar: CustomAppBar(
+        title: 'Add Brands',
       ),
+      // appBar: AppBar(
+      //   title: const Row(
+      //     children: [
+      //       SizedBox(
+      //         width: 65,
+      //       ),
+      //       Text(
+      //         'Add Brands',
+      //         style: TextStyle(
+      //             color: Colors.white,
+      //             fontSize: 22,
+      //             fontWeight: FontWeight.bold),
+      //       ),
+      //     ],
+      //   ),
+      //   backgroundColor: Colors.transparent,
+      //   iconTheme: const IconThemeData(color: Colors.white),
+      // ),
       backgroundColor: const Color(0xFF1E1E1E),
       bottomNavigationBar: BottomAppBar(
         height: 70,
@@ -118,18 +123,23 @@ class _BrandPageState extends State<BrandPage> {
             ),
             const SizedBox(height: 20),
             Center(
-              child: ElevatedButton(
+              child: CustomButtonAll(
+                label: 'Save Brand',
                 onPressed: saveBrand,
-                child: Text('Save Brand'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color.fromARGB(255, 182, 214, 135),
-                  foregroundColor: const Color.fromARGB(255, 6, 6, 6),
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 28,
-                    vertical: 10,
-                  ),
-                ),
               ),
+
+              // child: ElevatedButton(
+              //   onPressed: saveBrand,
+              //   child: Text('Save Brand'),
+              //   style: ElevatedButton.styleFrom(
+              //     backgroundColor: Color.fromARGB(255, 182, 214, 135),
+              //     foregroundColor: const Color.fromARGB(255, 6, 6, 6),
+              //     padding: EdgeInsets.symmetric(
+              //       horizontal: 28,
+              //       vertical: 10,
+              //     ),
+              //   ),
+              // ),
             )
           ],
         ),

@@ -65,20 +65,27 @@ class ContactUsPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             InkWell(
-              onTap: () => _launchURL('tel:+1234567890'),
               child: const Text(
-                'Phone: 4562658654',
+                'Toll free number:18001234567',
                 style: TextStyle(color: Colors.blue),
               ),
             ),
-            const SizedBox(height: 8),
-            InkWell(
-              onTap: () => _launchURL('https://wa.me/1234567890'),
-              child: const Text(
-                'WhatsApp: 4562658654',
-                style: TextStyle(color: Colors.blue),
-              ),
-            ),
+
+            // InkWell(
+            //   onTap: () => _launchURL('tel:+1234567890'),
+            //   child: const Text(
+            //     'Phone: 4562658654',
+            //     style: TextStyle(color: Colors.blue),
+            //   ),
+            // ),
+            // const SizedBox(height: 8),
+            // InkWell(
+            //   onTap: () => _launchURL('https://wa.me/1234567890'),
+            //   child: const Text(
+            //     'WhatsApp: 4562658654',
+            //     style: TextStyle(color: Colors.blue),
+            //   ),
+            // ),
             const SizedBox(height: 16),
             bodyText(
               'Thank you for choosing Car voyage app. We look forward to serving you!',
