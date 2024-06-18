@@ -28,42 +28,7 @@ class _RentedCarState extends State<RentedCar> {
         appBar: CustomAppBar(
           title: 'Rented Cars',
         ),
-        // appBar: AppBar(
-        //   title: const Text(
-        //     'Rented Cars',
-        //     style: TextStyle(
-        //         color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
-        //   ),
-        //   backgroundColor: Colors.transparent,
-        //   iconTheme: const IconThemeData(color: Colors.white),
-        // ),
         backgroundColor: const Color(0xFF1E1E1E),
-        // bottomNavigationBar: BottomAppBar(
-        //   height: 70,
-        //   color: Colors.black45,
-        //   shape: const CircularNotchedRectangle(),
-        //   child: Row(
-        //     children: [
-        //       GestureDetector(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => HomeScreen(),
-        //               ));
-        //         },
-        //         child: Container(
-        //           height: 28,
-        //           width: 28,
-        //           child: Image.asset(
-        //             'lib/icons/house.png',
-        //             color: Color.fromARGB(255, 147, 247, 150),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         bottomNavigationBar: buildCustomBottomAppBar(
           context: context,
         ),
@@ -73,7 +38,14 @@ class _RentedCarState extends State<RentedCar> {
               var data = box.values.toList().cast<CustomerModel>();
               if (data.isEmpty) {
                 return Center(
-                  child: Text('No RentOut Cars'),
+                  child: Text(
+                    'No RentOut Cars',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 );
               } else {
                 return GridView.builder(

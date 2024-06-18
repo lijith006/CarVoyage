@@ -51,6 +51,15 @@ class _AddCarsState extends State<AddCars> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Color.fromARGB(255, 255, 253, 253),
+          ),
+        ),
         title: const Text(
           'Add Cars',
           style: TextStyle(
@@ -63,32 +72,6 @@ class _AddCarsState extends State<AddCars> {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       backgroundColor: const Color(0xFF1E1E1E),
-      // bottomNavigationBar: BottomAppBar(
-      //   height: 70,
-      //   color: Colors.black45,
-      //   shape: const CircularNotchedRectangle(),
-      //   child: Row(
-      //     children: [
-      //       GestureDetector(
-      //         onTap: () {
-      //           Navigator.push(
-      //               context,
-      //               MaterialPageRoute(
-      //                 builder: (context) => HomeScreen(),
-      //               ));
-      //         },
-      //         child: Container(
-      //           height: 28,
-      //           width: 28,
-      //           child: Image.asset(
-      //             'lib/icons/house.png',
-      //             color: Color.fromARGB(255, 147, 247, 150),
-      //           ),
-      //         ),
-      //       ),
-      //     ],
-      //   ),
-      // ),
       bottomNavigationBar: buildCustomBottomAppBar(
         context: context,
       ),
@@ -275,24 +258,6 @@ class _AddCarsState extends State<AddCars> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // ElevatedButton.icon(
-                        //   onPressed: () async {
-                        //     if (formKey.currentState!.validate()) {
-                        //       SaveCars();
-                        //     }
-                        //   },
-                        //   style: ElevatedButton.styleFrom(
-                        //     backgroundColor: Color.fromARGB(255, 182, 214, 135),
-                        //     foregroundColor: const Color.fromARGB(255, 6, 6, 6),
-                        //     padding: EdgeInsets.symmetric(
-                        //       horizontal: 28,
-                        //       vertical: 10,
-                        //     ),
-                        //   ),
-                        //   icon: const Icon(Icons.save_outlined),
-                        //   label: const Text('Save'),
-                        // ),
-                        // const SizedBox(width: 20),
                         CustomButtonAll(
                           label: ' Save ',
                           icon: Icons.save_outlined,
@@ -320,32 +285,6 @@ class _AddCarsState extends State<AddCars> {
                             });
                           },
                         ),
-
-                        // ElevatedButton.icon(
-                        //   onPressed: () {
-                        //     image25 = null;
-
-                        //     modelNameController.clear();
-                        //     yearController.clear();
-                        //     amountController.clear();
-                        //     insuranceDateController.clear();
-                        //     setState(() {
-                        //       selectedBrand = null;
-                        //       fuel = null;
-                        //       seat = null;
-                        //     });
-                        //   },
-                        //   style: ElevatedButton.styleFrom(
-                        //     backgroundColor: Color.fromARGB(255, 182, 214, 135),
-                        //     foregroundColor: const Color.fromARGB(255, 6, 6, 6),
-                        //     padding: EdgeInsets.symmetric(
-                        //       horizontal: 28,
-                        //       vertical: 10,
-                        //     ),
-                        //   ),
-                        //   icon: const Icon(Icons.cancel_outlined),
-                        //   label: const Text('Cancel'),
-                        // )
                       ],
                     ),
                   ),

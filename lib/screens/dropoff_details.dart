@@ -229,36 +229,19 @@ class _DropoffDetailsState extends State<DropoffDetails> {
                                 builder: (context) => HomeScreen(),
                               ),
                             );
+//****************Snackbar */
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                    'The car has been rented off successfully!'),
+                                duration: Duration(seconds: 3),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+
                             print('Result Rent:${totalRent}');
                           },
                         ),
-
-                        // ElevatedButton(
-                        //     onPressed: () {
-                        //       Navigator.pop(context);
-                        //       removeCustomerFromScreen(widget.customer);
-                        //       saveDetails();
-                        //       verifyCarAdded();
-
-                        //       Navigator.push(
-                        //         context,
-                        //         MaterialPageRoute(
-                        //           builder: (context) => HomeScreen(),
-                        //         ),
-                        //       );
-                        //       print('Result Rent:${totalRent}');
-                        //     },
-                        //     child: Text('Submit'),
-                        //     style: ElevatedButton.styleFrom(
-                        //       backgroundColor:
-                        //           Color.fromARGB(255, 182, 214, 135),
-                        //       foregroundColor:
-                        //           const Color.fromARGB(255, 6, 6, 6),
-                        //       padding: EdgeInsets.symmetric(
-                        //         horizontal: 28,
-                        //         vertical: 10,
-                        //       ),
-                        //     ))
                       ],
                     )),
                   ),

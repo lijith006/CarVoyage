@@ -105,6 +105,15 @@ class _CarSearchFilterScreenState extends State<CarSearchFilterScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios_new,
+            color: Color.fromARGB(255, 255, 253, 253),
+          ),
+        ),
         foregroundColor: Colors.white,
         backgroundColor: Color.fromARGB(115, 46, 44, 44),
         title: Text(
@@ -258,7 +267,11 @@ class _CarSearchFilterScreenState extends State<CarSearchFilterScreen> {
                   alignment: Alignment.center,
                   child: Text(
                     'No cars available',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               )

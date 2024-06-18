@@ -25,24 +25,6 @@ class _BrandPageState extends State<BrandPage> {
       appBar: CustomAppBar(
         title: 'Add Brands',
       ),
-      // appBar: AppBar(
-      //   title: const Row(
-      //     children: [
-      //       SizedBox(
-      //         width: 65,
-      //       ),
-      //       Text(
-      //         'Add Brands',
-      //         style: TextStyle(
-      //             color: Colors.white,
-      //             fontSize: 22,
-      //             fontWeight: FontWeight.bold),
-      //       ),
-      //     ],
-      //   ),
-      //   backgroundColor: Colors.transparent,
-      //   iconTheme: const IconThemeData(color: Colors.white),
-      // ),
       backgroundColor: const Color(0xFF1E1E1E),
       bottomNavigationBar: BottomAppBar(
         height: 70,
@@ -127,19 +109,6 @@ class _BrandPageState extends State<BrandPage> {
                 label: 'Save Brand',
                 onPressed: saveBrand,
               ),
-
-              // child: ElevatedButton(
-              //   onPressed: saveBrand,
-              //   child: Text('Save Brand'),
-              //   style: ElevatedButton.styleFrom(
-              //     backgroundColor: Color.fromARGB(255, 182, 214, 135),
-              //     foregroundColor: const Color.fromARGB(255, 6, 6, 6),
-              //     padding: EdgeInsets.symmetric(
-              //       horizontal: 28,
-              //       vertical: 10,
-              //     ),
-              //   ),
-              // ),
             )
           ],
         ),

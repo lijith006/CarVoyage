@@ -88,51 +88,7 @@ class _CarSelectState extends State<CarSelect> {
         appBar: CustomAppBar(
           title: 'Car Selection',
         ),
-        // appBar: AppBar(
-        //   title: const Row(
-        //     children: [
-        //       SizedBox(
-        //         width: 50,
-        //       ),
-        //       Text(
-        //         'CAR SELECTION',
-        //         style: TextStyle(
-        //             color: Colors.white,
-        //             fontSize: 22,
-        //             fontWeight: FontWeight.bold),
-        //       ),
-        //     ],
-        //   ),
-        //   backgroundColor: Colors.transparent,
-        //   iconTheme: const IconThemeData(color: Colors.white),
-        // ),
         backgroundColor: Color.fromARGB(115, 50, 49, 49),
-        // bottomNavigationBar: BottomAppBar(
-        //   height: 70,
-        //   color: Color.fromARGB(115, 50, 49, 49),
-        //   shape: const CircularNotchedRectangle(),
-        //   child: Row(
-        //     children: [
-        //       GestureDetector(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => HomeScreen(),
-        //               ));
-        //         },
-        //         child: Container(
-        //           height: 28,
-        //           width: 28,
-        //           child: Image.asset(
-        //             'lib/icons/house.png',
-        //             color: Color.fromARGB(255, 147, 247, 150),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         bottomNavigationBar: buildCustomBottomAppBar(
           context: context,
         ),
@@ -298,31 +254,6 @@ class _CarSelectState extends State<CarSelect> {
                     }
                   },
                 ),
-                // ElevatedButton.icon(
-                //   style: ButtonStyle(
-                //       padding: MaterialStatePropertyAll(
-                //         EdgeInsets.symmetric(horizontal: 28, vertical: 10),
-                //       ),
-                //       foregroundColor: MaterialStatePropertyAll(Colors.black),
-                //       backgroundColor: MaterialStatePropertyAll(
-                //         Color.fromARGB(255, 182, 214, 135),
-                //       )),
-                //   onPressed: () {
-                //     if (_formKey.currentState!.validate() && validateDates()) {
-                //       Navigator.of(context).push(MaterialPageRoute(
-                //         builder: (context) => AddCustomerDetails(
-                //             car: widget.car,
-                //             initialkilometers: initialKilometersController.text,
-                //             pickUpDate: pickUpDateController.text,
-                //             dropOffDate: dropOffDateController.text),
-                //       ));
-                //     }
-                //   },
-                //   icon: const Icon(Icons.save, color: Colors.black),
-                //   label: const Text(
-                //     'Add user details',
-                //   ),
-                // ),
               ]),
             ),
           ),

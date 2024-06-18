@@ -40,50 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-//button function
-  // OutlinedButton buildCustomButton({
-  //   required IconData icon,
-  //   required VoidCallback onPressed,
-  //   required text,
-  //   double width = 150,
-  //   double height = 120,
-  // }) {
-  //   return OutlinedButton(
-  //     onPressed: onPressed,
-  //     style: OutlinedButton.styleFrom(
-  //       backgroundColor: Colors.white,
-  //       shape: RoundedRectangleBorder(
-  //         borderRadius: BorderRadius.circular(30.0),
-  //       ),
-  //       side: BorderSide(
-  //         // color: Color.fromARGB(255, 147, 247, 150),
-  //         //color: Color.fromARGB(255, 35, 36, 35),
-  //         width: 2,
-  //       ),
-  //       minimumSize: Size(width, height),
-  //     ),
-  //     child: Row(
-  //       mainAxisAlignment: MainAxisAlignment.center,
-  //       children: [
-  //         Icon(
-  //           icon,
-  //           size: 29,
-  //           // color: Color.fromARGB(255, 147, 247, 150),
-  //           color: Colors.black,
-  //         ),
-  //         SizedBox(width: 10),
-  //         Text(
-  //           text,
-  //           style: TextStyle(
-  //             fontSize: 15,
-  //             color: Colors.black,
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -304,70 +260,6 @@ class _HomeScreenState extends State<HomeScreen> {
           showBrand: true,
         ),
 
-        // bottomNavigationBar: BottomAppBar(
-        //   height: 70,
-        //   color: Color.fromARGB(115, 50, 49, 49),
-        //   shape: const CircularNotchedRectangle(),
-        //   child: Row(
-        //     children: [
-        //       GestureDetector(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => HomeScreen(),
-        //               ));
-        //         },
-        //         child: Container(
-        //           height: 28,
-        //           width: 28,
-        //           child: Image.asset(
-        //             'lib/icons/house.png',
-        //             color: Color.fromARGB(255, 147, 247, 150),
-        //           ),
-        //         ),
-        //       ),
-        //       const Spacer(),
-        //       GestureDetector(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => NotificationPage(),
-        //               ));
-        //         },
-        //         child: Container(
-        //           height: 31,
-        //           width: 31,
-        //           child: Image.asset(
-        //             'lib/icons/notification.png',
-        //             color: Color.fromARGB(255, 147, 247, 150),
-        //           ),
-        //         ),
-        //       ),
-        //       SizedBox(
-        //         width: 30,
-        //       ),
-        //       GestureDetector(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => BrandPage(),
-        //               ));
-        //         },
-        //         child: Container(
-        //           height: 31,
-        //           width: 31,
-        //           child: Image.asset(
-        //             'lib/icons/brand-imagewhite.png',
-        //             color: Color.fromARGB(255, 147, 247, 150),
-        //           ),
-        //         ),
-        //       )
-        //     ],
-        //   ),
-        // ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
           shape: const CircleBorder(),
@@ -391,9 +283,6 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                // Padding(
-                // padding: EdgeInsets.only(top: 32, right: 15, left: 15),
-                //child:
                 Container(
                     child: ClipRRect(
                   borderRadius: const BorderRadius.only(
@@ -411,30 +300,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomButton(
-                      width: 170,
-                      height: 120,
-                      icon: Icons.format_list_bulleted,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => AllCarList()),
-                        );
-                      },
-                      text: 'Available\nCars',
+                    Expanded(
+                      child: CustomButton(
+                        width: double.infinity,
+                        // width: 170,
+                        height: 120,
+                        icon: Icons.format_list_bulleted,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => AllCarList()),
+                          );
+                        },
+                        text: 'Available\nCars',
+                      ),
                     ),
                     SizedBox(width: 22),
-                    CustomButton(
-                      width: 170,
-                      height: 120,
-                      icon: Icons.car_rental,
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => RentedCar()),
-                        );
-                      },
-                      text: 'Rented\nCars',
+                    Expanded(
+                      child: CustomButton(
+                        width: double.infinity,
+                        // width: 170,
+                        height: 120,
+                        icon: Icons.car_rental,
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => RentedCar()),
+                          );
+                        },
+                        text: 'Rented\nCars',
+                      ),
                     ),
                     const SizedBox(
                       height: 15,
@@ -444,126 +341,38 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: 25,
                 ),
-                Row(
-                  children: [
-                    OutlinedButton(
-                      style: OutlinedButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        side: BorderSide(
-                          width: 2,
-                        ),
-                        minimumSize: Size(362, 120),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30.0),
-                        ),
-                      ),
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DueCarsPAge(),
-                            ));
-                      },
-                      child: Row(
-                        children: [
-                          Icon(Icons.date_range, size: 24, color: Colors.black),
-                          SizedBox(
-                            width: 20,
-                          ),
-                          Text(
-                            'Due Cars',
-                            style: TextStyle(fontSize: 15, color: Colors.black),
-                          ),
-                        ],
-                      ),
+                OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    side: BorderSide(
+                      width: 2,
                     ),
-                  ],
+                    minimumSize: Size(362, 120),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                    ),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DueCarsPAge(),
+                        ));
+                  },
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.date_range, size: 24, color: Colors.black),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Text(
+                        'Due Cars',
+                        style: TextStyle(fontSize: 15, color: Colors.black),
+                      ),
+                    ],
+                  ),
                 ),
-
-                //buttons---------------------------------------------------------
-                // Padding(
-                //   padding: const EdgeInsets.all(15.0),
-                //   child: ElevatedButton.icon(
-                //     label: const Text(
-                //       'Available Cars',
-                //       style: TextStyle(
-                //           fontSize: 16, color: Color.fromARGB(255, 147, 247, 150)),
-                //     ),
-                //     icon: const Icon(
-                //       Icons.format_list_bulleted,
-                //       size: 29,
-                //       color: Color.fromARGB(255, 147, 247, 150),
-                //     ),
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (context) => AllCarList(),
-                //           ));
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //         backgroundColor: Color.fromARGB(255, 78, 76, 76),
-                //         shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(10))),
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(15.0),
-                //   child: ElevatedButton.icon(
-                //     label: const Text(
-                //       'Rented Cars',
-                //       style: TextStyle(
-                //           fontSize: 16, color: Color.fromARGB(255, 147, 247, 150)),
-                //     ),
-                //     icon: const Icon(
-                //       Icons.car_rental,
-                //       size: 29,
-                //       color: Color.fromARGB(255, 147, 247, 150),
-                //     ),
-                //     onPressed: () {
-                //       Navigator.push(context,
-                //           MaterialPageRoute(builder: (context) => RentedCar()));
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //         backgroundColor: Color.fromARGB(255, 78, 76, 76),
-                //         shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(10))),
-                //   ),
-                // ),
-                // const SizedBox(
-                //   height: 15,
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.all(15.0),
-                //   child: ElevatedButton.icon(
-                //     label: const Text(
-                //       'Due Cars',
-                //       style: TextStyle(
-                //           fontSize: 16, color: Color.fromARGB(255, 147, 247, 150)),
-                //     ),
-                //     icon: const Icon(
-                //       Icons.date_range_outlined,
-                //       size: 29,
-                //       color: Color.fromARGB(255, 147, 247, 150),
-                //     ),
-                //     onPressed: () {
-                //       Navigator.push(
-                //           context,
-                //           MaterialPageRoute(
-                //             builder: (context) => DueCarsPAge(),
-                //           ));
-                //     },
-                //     style: ElevatedButton.styleFrom(
-                //         backgroundColor: Color.fromARGB(255, 78, 76, 76),
-                //         shape: RoundedRectangleBorder(
-                //             borderRadius: BorderRadius.circular(10))),
-                //   ),
-                // ),
-
-                //buttons-------------------------------------------------------------------------------------------------------------
               ],
             ),
           ),

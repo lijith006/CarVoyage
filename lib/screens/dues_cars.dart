@@ -51,6 +51,15 @@ class DueCarsPAge extends StatelessWidget {
     final List<CustomerModel> dueCars = filterDueCars();
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: Color.fromARGB(255, 255, 253, 253),
+            ),
+          ),
           title: const Text(
             'Due Cars',
             style: TextStyle(

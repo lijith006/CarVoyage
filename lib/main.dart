@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Car Rental App',
+        title: 'Car Voyage',
         theme: ThemeData(
           useMaterial3: true,
           primarySwatch: Colors.blue,

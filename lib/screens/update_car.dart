@@ -63,32 +63,6 @@ class _UpdateCarState extends State<UpdateCar> {
           title: 'Update Cars',
         ),
         backgroundColor: Color.fromARGB(115, 50, 49, 49),
-        // bottomNavigationBar: BottomAppBar(
-        //   height: 70,
-        //   color: Color.fromARGB(115, 50, 49, 49),
-        //   shape: const CircularNotchedRectangle(),
-        //   child: Row(
-        //     children: [
-        //       GestureDetector(
-        //         onTap: () {
-        //           Navigator.push(
-        //               context,
-        //               MaterialPageRoute(
-        //                 builder: (context) => HomeScreen(),
-        //               ));
-        //         },
-        //         child: Container(
-        //           height: 28,
-        //           width: 28,
-        //           child: Image.asset(
-        //             'lib/icons/house.png',
-        //             color: Color.fromARGB(255, 147, 247, 150),
-        //           ),
-        //         ),
-        //       ),
-        //     ],
-        //   ),
-        // ),
         bottomNavigationBar: buildCustomBottomAppBar(
           context: context,
         ),
