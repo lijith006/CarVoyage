@@ -1,6 +1,6 @@
 # Car Voyage
 
-An admin-side car rental management application built using **Flutter** and powered by the **Hive database**. 🚗✨  
+An admin-side car rental management application built using **Flutter** and powered by the **Hive database**.  
 
 ## Getting Started
 
