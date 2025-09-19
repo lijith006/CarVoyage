@@ -1,16 +1,20 @@
-# flutter_project_final
+# Car Voyage
 
-A new Flutter project.
+An admin-side car rental management application built using **Flutter** and powered by the **Hive database**. 🚗✨  
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+Car Voyage is designed to help rental businesses manage their car inventory, monitor rentals, and handle customer details with an **offline-first approach**.  
 
-A few resources to get you started if this is your first Flutter project:
+### Key Features
+- **Manage Car Inventory** – Add, edit, and view available cars.  
+- **Monitor Rentals** – Track cars currently rented out, customer details, and availability.  
+- **Advanced Search & Filters** – Search by brand, price, fuel type, seating capacity, and more.  
+- **Due Notifications** – Alerts for cars due for return.  
+- **Direct Customer Contact** – Call customers directly from the app.  
+- **Rental Calculations** – Automatic rental pricing and duration calculations.  
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Tech Stack
+- **Flutter** for cross-platform development.  
+- **Hive Database** for fast, efficient local storage.  
+- **Offline Functionality** – Works without internet connectivity.  
