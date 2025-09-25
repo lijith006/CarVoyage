@@ -51,6 +51,13 @@ dependencies:
   lottie: ^3.1.0
   intl: ^0.19.0
   url_launcher: ^6.2.6
+  local_auth: ^2.3.0
+  animations: ^2.0.11
+  animated_background: ^2.0.0
+  video_player: ^2.10.0
+  arc_clipper: ^0.1.0
+
+
 
 dev_dependencies:
   flutter_test:
@@ -81,15 +88,16 @@ flutter:
     - lib/icons/
     - assets/Images/altroz-removebg-preview.png
     - assets/Images/splash.jpg
-    - assets\Images\home.jpg
-    - assets\Images\ecosport-removebg-preview (1).png
-    - assets\Images\Exter-removebg-preview.png
-    - assets\Images\figo-removebg-preview.png
-    - assets\Images\grey.jpg
-    - assets\Images\hondaCity-removebg-preview.png
-    - assets\Images/animations/car_logo_anim.json
-    - assets\Images\carvoyagepic.png
-    - assets\Images\hometest.png
+    - assets/Images/home.jpg
+    - assets/Images/ecosport-removebg-preview (1).png
+    - assets/Images/Exter-removebg-preview.png
+    - assets/Images/figo-removebg-preview.png
+    - assets/Images/grey.jpg
+    - assets/Images/hondaCity-removebg-preview.png
+    - assets/Images/animations/car_logo_anim.json
+    - assets/Images/carvoyagepic.png
+    - assets/Images/hometest.png
+    - assets/videos/
 
 
   # An image asset can refer to one or more resolution-specific "variants", see

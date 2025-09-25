@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_project_final/components/bottom_app_bar.dart';
 import 'package:flutter_project_final/components/custom_button.dart';
+import 'package:flutter_project_final/components/page_transition.dart';
 import 'package:flutter_project_final/screens/drawerMenu/aboutUs.dart';
 import 'package:flutter_project_final/screens/drawerMenu/contacts.dart';
 import 'package:flutter_project_final/screens/drawerMenu/privacy.dart';
@@ -161,20 +162,14 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Privacy(),
-                        ));
+                        context, PageTransition.scale(const Privacy()));
                   },
                 ),
                 ListTile(
                   leading: GestureDetector(
                     onTap: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
-                          ));
+                          context, PageTransition.scale(const HomeScreen()));
                     },
                     child: Container(
                       height: 28,
@@ -193,11 +188,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => TermsAndConditionsPage(),
-                        ));
+                    Navigator.push(context,
+                        PageTransition.scale(const TermsAndConditionsPage()));
                   },
                 ),
                 ListTile(
@@ -214,10 +206,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ContactUsPage(),
-                        ));
+                        context, PageTransition.scale(const ContactUsPage()));
                   },
                 ),
                 ListTile(
@@ -234,10 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   onTap: () {
                     Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => AboutUsPage(),
-                        ));
+                        context, PageTransition.scale(const AboutUsPage()));
                   },
                 ),
                 SizedBox(
@@ -254,21 +240,19 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
         ),
+        //Bottom Navigation bar
         bottomNavigationBar: buildCustomBottomAppBar(
           context: context,
           showNotification: true,
           showBrand: true,
+          isHome: true,
         ),
-
+//FAB
         floatingActionButton: FloatingActionButton(
           backgroundColor: Colors.white,
           shape: const CircleBorder(),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AddCars(),
-                ));
+            Navigator.push(context, PageTransition.fade(const AddCars()));
           },
           child: const Icon(Icons.add),
         ),
@@ -301,23 +285,23 @@ class _HomeScreenState extends State<HomeScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
+                      //Available cars
                       child: CustomButton(
                         width: double.infinity,
                         // width: 170,
                         height: 120,
                         icon: Icons.format_list_bulleted,
                         onPressed: () {
+                          //Navigation with transition
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AllCarList()),
-                          );
+                              context, PageTransition.fade(const AllCarList()));
                         },
                         text: 'Available\nCars',
                       ),
                     ),
                     SizedBox(width: 22),
                     Expanded(
+                      //Rented cars
                       child: CustomButton(
                         width: double.infinity,
                         // width: 170,
@@ -325,10 +309,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         icon: Icons.car_rental,
                         onPressed: () {
                           Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => RentedCar()),
-                          );
+                              context, PageTransition.fade(const RentedCar()));
+
+                          // Navigator.push(
+                          //   context,
+                          //   MaterialPageRoute(
+                          //       builder: (context) => RentedCar()),
+                          // );
                         },
                         text: 'Rented\nCars',
                       ),
@@ -353,11 +340,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DueCarsPAge(),
-                        ));
+                    Navigator.push(context, PageTransition.fade(DueCarsPAge()));
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //       builder: (context) => DueCarsPAge(),
+                    //     ));
                   },
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,

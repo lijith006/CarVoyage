@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_project_final/components/page_transition.dart';
 import 'package:flutter_project_final/screens/brand_page.dart';
 import 'package:flutter_project_final/screens/home_screen.dart';
 import 'package:flutter_project_final/screens/notification_page.dart';
 
 Widget buildCustomBottomAppBar({
+  bool isHome = false,
   required BuildContext context,
   bool showHome = true,
   bool showNotification = false,
@@ -19,20 +21,27 @@ Widget buildCustomBottomAppBar({
       children: [
         if (showHome)
           GestureDetector(
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => HomeScreen(),
-                ),
-              );
-            },
+            onTap: isHome
+                ? null
+                : () {
+                    Navigator.push(
+                        context, PageTransition.fade(const HomeScreen()));
+                  },
+            // onTap: () {
+            //   Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //       builder: (context) => HomeScreen(),
+            //     ),
+            //   );
+            // },
             child: Container(
               height: 28,
               width: 28,
               child: Image.asset(
                 'lib/icons/house.png',
-                color: Colors.white,
+                // ignore: deprecated_member_use
+                color: Colors.white.withOpacity(isHome ? 0.5 : 1.0),
               ),
             ),
           ),
@@ -53,11 +62,7 @@ Widget buildCustomBottomAppBar({
           GestureDetector(
             onTap: () {
               Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => NotificationPage(),
-                ),
-              );
+                  context, PageTransition.fade(const NotificationPage()));
             },
             child: Container(
               height: 31,
@@ -74,12 +79,7 @@ Widget buildCustomBottomAppBar({
         if (showBrand)
           GestureDetector(
             onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => BrandPage(),
-                ),
-              );
+              Navigator.push(context, PageTransition.fade(const BrandPage()));
             },
             child: Container(
               height: 31,

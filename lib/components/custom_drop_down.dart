@@ -20,6 +20,10 @@ Widget customDropdownField({
         );
       }).toList(),
       onChanged: onChanged,
+      hint: Text(
+        hintText,
+        style: const TextStyle(color: Colors.white),
+      ),
       decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),

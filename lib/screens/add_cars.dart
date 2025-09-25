@@ -85,11 +85,12 @@ class _AddCarsState extends State<AddCars> {
                 image25 = image;
               });
             }),
-            const SizedBox(height: 70),
+            const SizedBox(height: 50),
             Form(
               key: formKey,
               child: Column(
                 children: [
+                  //Brand
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: DropdownButtonFormField<String>(
@@ -101,12 +102,16 @@ class _AddCarsState extends State<AddCars> {
                         });
                       },
                       decoration: InputDecoration(
-                        hintText: 'Select Brand',
-                        hintStyle: TextStyle(color: Colors.white),
                         labelText: 'Select Brand',
-                        labelStyle: TextStyle(color: Colors.white),
+                        labelStyle: TextStyle(
+                          color: Colors.white,
+                        ),
                         border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(12)),
+                      ),
+                      hint: Text(
+                        "Select Brand",
+                        style: TextStyle(color: Colors.white),
                       ),
                       validator: (value) {
                         if (value == null || value.isEmpty) {
@@ -120,6 +125,7 @@ class _AddCarsState extends State<AddCars> {
                     ),
                   ),
                   Gap(15),
+                  //Model
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomTextField(
@@ -136,6 +142,7 @@ class _AddCarsState extends State<AddCars> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  //Year
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomTextField(
@@ -155,6 +162,7 @@ class _AddCarsState extends State<AddCars> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  //Insurance
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomTextField(
@@ -174,6 +182,7 @@ class _AddCarsState extends State<AddCars> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  //Amount
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomTextField(
@@ -193,6 +202,7 @@ class _AddCarsState extends State<AddCars> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  //Seat
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: customDropdownField(
@@ -214,6 +224,7 @@ class _AddCarsState extends State<AddCars> {
                     ),
                   ),
                   const SizedBox(height: 20),
+                  //Fuel
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: customDropdownField(
@@ -234,41 +245,63 @@ class _AddCarsState extends State<AddCars> {
                       },
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.all(8.0),
-                  ),
+
                   const SizedBox(height: 20),
-                  imagePickerWidget('Pollution Certificate', pollutionCertImage,
-                      (File? image) {
-                    setState(() {
-                      pollutionCertImage = image;
-                    });
-                  }),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  imagePickerWidget('Insurance Certificate', InsuranceCertImage,
-                      (File? image) {
-                    setState(() {
-                      InsuranceCertImage = image;
-                    });
-                  }),
+                  //Pollution
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        CustomButtonAll(
-                          label: ' Save ',
-                          icon: Icons.save_outlined,
-                          onPressed: () async {
-                            if (formKey.currentState!.validate()) {
-                              SaveCars();
-                            }
-                          },
+                        imagePickerWidget(
+                            'Pollution Certificate', pollutionCertImage,
+                            (File? image) {
+                          setState(() {
+                            pollutionCertImage = image;
+                          });
+                        }),
+
+                        SizedBox(
+                          width: 20,
                         ),
-                        const SizedBox(width: 40),
+                        //Insurance
+                        imagePickerWidget(
+                            'Insurance Certificate', InsuranceCertImage,
+                            (File? image) {
+                          setState(() {
+                            InsuranceCertImage = image;
+                          });
+                        }),
+                      ],
+                    ),
+                  ),
+
+                  // //Pollution
+                  // imagePickerWidget('Pollution Certificate', pollutionCertImage,
+                  //     (File? image) {
+                  //   setState(() {
+                  //     pollutionCertImage = image;
+                  //   });
+                  // }),
+                  // SizedBox(
+                  //   height: 20,
+                  // ),
+                  // //Insurance
+                  // imagePickerWidget('Insurance Certificate', InsuranceCertImage,
+                  //     (File? image) {
+                  //   setState(() {
+                  //     InsuranceCertImage = image;
+                  //   });
+                  // }),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        //Cancel button
                         CustomButtonAll(
+                          backgroundColor: Colors.red.withOpacity(0.2),
+                          textColor: Colors.redAccent,
                           label: 'Cancel',
                           icon: Icons.cancel_outlined,
                           onPressed: () {
@@ -283,6 +316,20 @@ class _AddCarsState extends State<AddCars> {
                               fuel = null;
                               seat = null;
                             });
+                          },
+                        ),
+                        const SizedBox(width: 40),
+
+                        //SAVE button
+                        CustomButtonAll(
+                          backgroundColor: Colors.green.withOpacity(0.2),
+                          textColor: Colors.greenAccent,
+                          label: ' Save ',
+                          icon: Icons.save_outlined,
+                          onPressed: () async {
+                            if (formKey.currentState!.validate()) {
+                              SaveCars();
+                            }
                           },
                         ),
                       ],

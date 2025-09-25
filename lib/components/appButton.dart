@@ -12,7 +12,7 @@ class AppButton extends StatelessWidget {
   AppButton(
       {super.key,
       this.text,
-      this.color,
+      this.color = const Color.fromARGB(233, 231, 227, 227),
       this.height,
       this.width,
       required this.onTap,

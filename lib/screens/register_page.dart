@@ -35,7 +35,8 @@ class _RegisterPageState extends State<RegisterPage> {
                 SliverFillRemaining(
                   hasScrollBody: false,
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
                         padding: const EdgeInsets.only(top: 25),
@@ -133,7 +134,6 @@ class _RegisterPageState extends State<RegisterPage> {
                         child: AppButton(
                             height: 50,
                             width: 200,
-                            color: Colors.blueAccent,
                             onTap: () async {
                               var uuid = const Uuid().v1();
                               if (_regKey.currentState!.validate()) {
@@ -165,8 +165,10 @@ class _RegisterPageState extends State<RegisterPage> {
                               }
                             },
                             child: AppText(
-                              data: 'Register',
-                              color: Colors.white,
+                              data: 'R e g i s t e r',
+                              fw: FontWeight.bold,
+                              size: 15,
+                              color: Colors.black,
                             )),
                       ),
                       const SizedBox(
@@ -188,7 +190,7 @@ class _RegisterPageState extends State<RegisterPage> {
                             },
                             child: AppText(
                               data: 'Login',
-                              color: Colors.white,
+                              color: Colors.blue,
                             ),
                           )
                         ],
