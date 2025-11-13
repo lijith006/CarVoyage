@@ -1,5 +1,5 @@
-**Car Voyage
-**
+Car Voyage
+
 Car Voyage is an admin-side car rental management application built using Flutter and powered by the Hive database.
 It allows admins to efficiently manage car inventories, monitor rentals, track due returns, and communicate directly with customers — all while working fully offline.
 
